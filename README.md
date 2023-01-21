@@ -30,4 +30,9 @@ Below we have a table that lists the github user names of the contributors and t
     <td>Love-Ry1</td>
     <td>Love Rymo</td>
   </tr>
+  <tr>
+    <td>Zakariya00</td>
+    <td>Zakariya Omar</td>
+  </tr>
+  
 </table>
