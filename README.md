@@ -3,7 +3,7 @@ This a web development NodeJs project.
 
 
 ## Project Description
-
+This project is called FoodMatcher. The idea of this web project is to create a website where two users can be matched with each other based on their food choices. The idea is heavily inspired by the traditional Tinder app which maps users with each other. In this project, however, users will be mapped based on their food preferences. A user will be able to like or dislike a dish that is shown to them and will be matched with another user only if they have both liked the same food.
 
 
 ## Contributors 
