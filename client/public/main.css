@@ -1,6 +1,6 @@
 
 
-div {
+#login-form-wrap {
     background-color: #d00;
     animation-name: cycle;
     animation-duration: 4s;
@@ -38,4 +38,26 @@ input[type="submit"] {
     display: inline-block;
     cursor: pointer;
     text-align: center;
+}
+
+
+
+ /* this is the animataion for footer in main page */
+
+@keyframes move-to-the-side {
+  0% {
+    transform: translateX(1000px);
+  }
+  50% {
+    transform: translateX(-1000px);
+  }
+ 
+  100% {
+    transform: translateX(1000px);
+  }
+}
+
+.box {
+ 
+  animation: move-to-the-side 15000ms infinite;
 }
