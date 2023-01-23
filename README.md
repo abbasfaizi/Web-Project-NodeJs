@@ -14,13 +14,14 @@ Below we have a table that lists the github user names of the contributors and t
     <th>GitHub username</th>
     <th>Name</th>
   </tr>
+    <td>abbasfaizi</td>
+    <td>Abbas Faizi</td>
+  <tr>
+    
+  </tr>
   <tr>
     <td>Civilangem0</td>
     <td>Fadi Abunaj</td>
-  </tr>
-  <tr>
-    <td>abbasfaizi</td>
-    <td>Abbas Faizi</td>
   </tr>
   <tr>
     <td>Mustafa0134</td>
