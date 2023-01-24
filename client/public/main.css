@@ -111,3 +111,19 @@ input[type="submit"] {
   margin-bottom: 20px;
 
 }
+
+#mainLogo{
+
+  width: 100px;
+  height: 80px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+
+/** this is style for nav i main page**/
+#navbar-id-for{
+
+  background-color: #21D192;
+  padding-top: 20px;
+}
