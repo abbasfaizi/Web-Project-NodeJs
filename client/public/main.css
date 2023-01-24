@@ -92,3 +92,22 @@ input[type="submit"] {
  
   animation: move-to-the-side 15000ms infinite;
 }
+
+
+
+/* this is the css for logo in login form */
+
+#login-form-logooo{
+
+
+  display: inline-block;
+}
+
+#logoBild{
+ 
+  width: 100px;
+  height: 80px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+
+}
