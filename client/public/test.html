@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="test.css"
+          type="text/css"/>
+</head>
+<body>
+<div id="main">
+<img id="image" class="initialLeft" src="images/food8.jpg" alt="First Image">
+
+<div id="buttons">
+    <button id="left" onclick="prevImage()">Previous</button>
+    <button id="right" onclick="nextImage()">Next</button>
+    <p> Click here to navigate to <a href="index.html">main page</a></p>
+</div>
+</div>
+<script>
+    var imageArray = ["images/food7.jpg","images/food8.jpg","images/food1.PNG"];
+    var counter = 0;
+    function prevImage() {
+        var image = document.getElementById("image");
+        image.classList.add("slideLeft");
+        setTimeout(function(){
+            image.src = imageArray[counter];
+            counter--;
+            if(counter < 0){
+                counter = imageArray.length-1;
+            }
+            image.style.left = "0";
+        },500);
+    }
+    function nextImage() {
+        var image = document.getElementById("image");
+        image.style.left = "100%";
+        setTimeout(function(){
+            image.src = imageArray[counter];
+            counter++;
+            if(counter>=imageArray.length){
+                counter = 0;
+            }
+            image.style.left = "0";
+        },500);
+    }
+</script>
+</body>
+</html>
