@@ -74,7 +74,7 @@ input[type="submit"] {
 
 
  /* this is the animation for footer in main page */
-
+/*
 @keyframes move-to-the-side {
   0% {
     transform: translateX(1000px);
@@ -92,7 +92,7 @@ input[type="submit"] {
  
   animation: move-to-the-side 15000ms infinite;
 }
-
+*/
 
 
 /* this is the css for logo in login form */
