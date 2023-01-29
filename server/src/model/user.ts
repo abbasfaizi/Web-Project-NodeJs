@@ -5,7 +5,6 @@ export class User {
     id: number;
     name: string;
     //Maybe some extra identifiers, i don't know?
-
     email: string;
     password: string;
 

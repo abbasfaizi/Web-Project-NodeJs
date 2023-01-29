@@ -9,7 +9,7 @@ describe('Dish', () => {
 
   beforeEach(() => {
     dish = new Dish(1, 'Pizza', 'https://example.com/pizza.jpg');
-    user = new User(1, 'Abbas Faizi','abbas@gmail.com');
+    user = new User(1, 'Abbas Faizi','abbas@gmail.com', "mypassword");
   });
 
   it('should have empty arrays for likedBy and dislikedBy', () => {
