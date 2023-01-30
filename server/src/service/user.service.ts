@@ -1,15 +1,44 @@
-//Service layer we provide some sort of API to handle operations that we are going to make on the data that comes from the model layer
-
 import { User } from "../model/user";
+import {Dish} from "../model/dish";
 
-export class UserService {
-  private users: User[] = [];
+export interface IUserService {
 
-  getUsers(): User[] {
+  getUsers() : Promise<Array<User>>;
+
+  addUser(user : User) : Promise<boolean>;
+
+  deleteUser(user : User) : Promise<boolean>;
+
+}
+
+
+class UserService implements IUserService{
+  users : Array<User> = [];
+
+  async getUsers():Promise<Array<User>> {
     return this.users;
   }
 
-  addUser(user: User): void {
+  async addUser(user : User): Promise<boolean> {
+    if (user == null) {
+      return false;
+    }
     this.users.push(user);
+    return true
   }
+
+  async deleteUser(user : User): Promise<boolean> {
+    if (user == null ||
+        !this.users.includes(user)) {
+      return false;
+    }
+
+    this.users.slice(this.users.indexOf(user), 1)
+    return true
+  }
+
+}
+
+export function makeUserService() : IUserService {
+  return new UserService();
 }

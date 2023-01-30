@@ -24,13 +24,3 @@ export class Dish {
         this.dislikedBy.push(user); //push a user to the "dislikedBy" array
     }
 }
-
-
-
-
-
-
-
-
-
-

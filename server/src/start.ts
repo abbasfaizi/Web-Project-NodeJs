@@ -4,7 +4,9 @@
 
 
 import express from "express";
-//import { taskRouter } from "./router/task";
+import { dishRouter } from "./router/dish.router";
+import { userRouter } from "./router/user.router";
+import {defaultRouter} from "./router/default.router";
 
 
 /**
@@ -22,4 +24,6 @@ export const app = express();
 
 
 app.use(express.json());
-//app.use("/task", taskRouter);
+app.use("/dish", dishRouter);  // Example: http://localhost:8080/dish
+app.use("/user", userRouter); //  Example: http://localhost:8080/user
+app.use("*", defaultRouter); //   Example: http://localhost:8080

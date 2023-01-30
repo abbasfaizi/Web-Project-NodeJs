@@ -1,23 +1,21 @@
-// src/router/FoodRouter.ts
-import { DishService } from "../service/dish.service";
-import { Router } from "express";
+import express, { Request, Response } from "express";
+import { makeDishService } from "../service/dish.service";
+import { Dish } from "../model/dish";
 
-export class FoodRouter {
-  private foodService: DishService;
+const dishService = makeDishService()
+export const dishRouter = express.Router()
 
-  constructor(foodService: DishService) {
-    this.foodService = foodService;
-  }
+// GET handler
+dishRouter.get("*", async (req, res) => {
+    res.status(200).send("Welcome to the Dish Page!! [GET]");
+});
 
-  router(): Router {
-    const router = Router();
-    router.get("/", (req, res) => {
-      res.send(this.foodService.getFoods());
-    });
-    router.post("/", (req, res) => {
-      this.foodService.addFood(req.body);
-      res.send("Food added successfully");
-    });
-    return router;
-  }
-}
+// POST Handler
+dishRouter.post("*", async (req,res) => {
+    res.status(200).send("Welcome to the Dish Page!! [POST]");
+});
+
+// PUT Handler
+dishRouter.put("*", async (req,res) => {
+    res.status(200).send("Welcome to the Dish Page!! [PUT]");
+});
