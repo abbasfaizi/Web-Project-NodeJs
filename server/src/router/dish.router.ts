@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { makeDishService } from "../service/dish.service";
 import { Dish } from "../model/dish";
 
-const dishService = makeDishService()
+const dishService = makeDishService()   // For using service layer functions
 export const dishRouter = express.Router()
 
 // GET handler

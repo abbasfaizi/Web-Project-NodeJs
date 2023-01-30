@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { makeUserService } from "../service/user.service";
 import { User } from "../model/user";
 
-const userService = makeUserService()
+const userService = makeUserService()      //For using service layer functions
 export const userRouter = express.Router()
 
 // GET Handler
