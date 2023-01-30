@@ -8,6 +8,7 @@ export interface IDishService {
   addFood(food : Dish) : Promise<Dish>;
 
   like(user : User, n : number) : Promise<boolean>;
+
   dislike(user : User, n : number) : Promise<boolean>;
 
 }
