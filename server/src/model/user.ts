@@ -10,7 +10,7 @@ export class User {
     password: string;
     // Stores what restaurants a user likes/dislikes
     liked: Dish[];
-    dislike: Dish[];
+    disliked: Dish[];
 
     constructor(id: number, name: string, email: string, password:string) {
         this.id = id;       //This code was taken from the initial example in the assignments page.
@@ -18,7 +18,7 @@ export class User {
         this.email = email;
         this.password = password;
         this.liked = [];
-        this.dislike = [];
+        this.disliked = [];
     }
 
     // push a dish (restaurant) to the dislike-array
@@ -28,7 +28,7 @@ export class User {
 
     // push a dish (restaurant) to the liked-array
    dislike(dish:Dish) {
-        this.dislike.push(dish);
+        this.disliked.push(dish);
     }
 
 }
