@@ -9,11 +9,16 @@ export interface IUserService {
 
   deleteUser(user : User) : Promise<boolean>;
 
+  likeRestaurant(user : User, n : number) : Promise<boolean>;
+
+  dislikeRestaurant(user : User, n : number) : Promise<boolean>;
+
 }
 
 
 class UserService implements IUserService{
   users : Array<User> = [];
+  restaurant: Array<Restaurants>;
 
   async getUsers():Promise<Array<User>> {
     return this.users;
@@ -35,6 +40,30 @@ class UserService implements IUserService{
 
     this.users.slice(this.users.indexOf(user), 1)
     return true
+  }
+
+  // ???
+  async likeRestaurant(user : User, n: number): Promise<boolean> {
+    const restaurant = this.restaurant[n];
+    if (restaurant == null){
+      return Promise.resolve(false);
+    }
+
+    user.liked.push(restaurant);
+
+    return Promise.resolve(true);
+  }
+
+  // ???
+  async dislikeRestaurant(user : User, n: number): Promise<boolean> {
+    const restaurant = this.restaurant[n];
+    if (restaurant == null){
+      return Promise.resolve(false);
+    }
+
+    user.disliked.push(restaurant);
+
+    return Promise.resolve(true);
   }
 
 }

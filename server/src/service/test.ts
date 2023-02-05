@@ -3,7 +3,7 @@
 import { Restaurants } from '../model/restaurants';
 import { User } from '../model/user';
 
-describe('Dish', () => {
+describe('Restaurant', () => {
   let restaurant: Restaurants;
   let user: User;
 

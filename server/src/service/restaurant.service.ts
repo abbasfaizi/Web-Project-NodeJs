@@ -1,36 +1,38 @@
 import { Restaurants } from "../model/restaurants";
 import {User} from "../model/user";
 
-export interface IDishService {
+export interface IRestaurantService {
 
-  getFoods() : Promise<Array<Restaurants>>;
+  getRestaurants() : Promise<Array<Restaurants>>;
 
-  addFood(food : Restaurants) : Promise<Restaurants>;
+  addRestaurant(restaurant : Restaurants) : Promise<Restaurants>;
 
-  like(user : User, n : number) : Promise<boolean>;
+ /* like(user : User, n : number) : Promise<boolean>;
 
   dislike(user : User, n : number) : Promise<boolean>;
+  */
 
 }
 
-class DishService implements IDishService{
+class RestaurantService implements IRestaurantService{
   foods: Array<Restaurants> = [];
 
-  async getFoods():Promise<Array<Restaurants>> {
+  async getRestaurants():Promise<Array<Restaurants>> {
     return this.foods;
   }
 
-  async addFood(food : Restaurants): Promise<Restaurants> {
+  async addRestaurant(food : Restaurants): Promise<Restaurants> {
     this.foods.push(food);
     return food
   }
 
+  /*
   async like(user : User, n : number) : Promise<boolean> {
     const dish = this.foods[n]
     if (dish == null) {
       return false;
     }
-    dish.likedBy.push(user)
+    user.likedBy.push(user)
     return true;
   }
 
@@ -43,8 +45,10 @@ class DishService implements IDishService{
     return true;
   }
 
+   */
+
 }
 
-export function makeDishService() : IDishService {
-  return new DishService();
+export function makeDishService() : IRestaurantService {
+  return new RestaurantService();
 }
