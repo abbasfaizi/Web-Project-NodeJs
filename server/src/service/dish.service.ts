@@ -1,11 +1,11 @@
-import { Dish } from "../model/dish";
+import { Restaurants } from "../model/restaurants";
 import {User} from "../model/user";
 
 export interface IDishService {
 
-  getFoods() : Promise<Array<Dish>>;
+  getFoods() : Promise<Array<Restaurants>>;
 
-  addFood(food : Dish) : Promise<Dish>;
+  addFood(food : Restaurants) : Promise<Restaurants>;
 
   like(user : User, n : number) : Promise<boolean>;
 
@@ -14,13 +14,13 @@ export interface IDishService {
 }
 
 class DishService implements IDishService{
-  foods: Array<Dish> = [];
+  foods: Array<Restaurants> = [];
 
-  async getFoods():Promise<Array<Dish>> {
+  async getFoods():Promise<Array<Restaurants>> {
     return this.foods;
   }
 
-  async addFood(food : Dish): Promise<Dish> {
+  async addFood(food : Restaurants): Promise<Restaurants> {
     this.foods.push(food);
     return food
   }

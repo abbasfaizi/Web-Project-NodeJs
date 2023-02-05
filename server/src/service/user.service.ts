@@ -1,5 +1,5 @@
 import { User } from "../model/user";
-import {Dish} from "../model/dish";
+import {Restaurants} from "../model/restaurants";
 
 export interface IUserService {
 

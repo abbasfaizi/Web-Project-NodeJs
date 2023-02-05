@@ -1,6 +1,6 @@
 import { User } from "./user";
 
-export class Dish {
+export class Restaurants {
 
     id : number;
     name : string;

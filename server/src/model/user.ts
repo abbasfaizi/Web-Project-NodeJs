@@ -1,5 +1,5 @@
 // So in the model layer one of our entities will definitely be the user, so I am just writing a skeleton for it and trying it out. -- Mustafa
-import {Dish} from "./dish";
+import {Restaurants} from "./restaurants";
 
 export class User {
 
@@ -9,8 +9,8 @@ export class User {
     email: string;
     password: string;
     // Stores what restaurants a user likes/dislikes
-    liked: Dish[];
-    disliked: Dish[];
+    liked: Restaurants[];
+    disliked: Restaurants[];
 
     constructor(id: number, name: string, email: string, password:string) {
         this.id = id;       //This code was taken from the initial example in the assignments page.
@@ -22,15 +22,15 @@ export class User {
     }
 
     // push a dish (restaurant) to the dislike-array
-    like(dish:Dish) {
+    like(dish:Restaurants) {
         this.liked.push(dish);
     }
 
     // push a dish (restaurant) to the liked-array
-   dislike(dish:Dish) {
+   dislike(dish:Restaurants) {
         this.disliked.push(dish);
     }
 
 }
 
-// We will probably have more entities like "Dish" and "Match" to represent the food and the matches between users.
+// We will probably have more entities like "Restaurants" and "Match" to represent the food and the matches between users.

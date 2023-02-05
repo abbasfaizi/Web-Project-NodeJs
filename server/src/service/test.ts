@@ -1,14 +1,14 @@
 //unit test folder, at least one test is required for the lab
 
-import { Dish } from '../model/dish';
+import { Restaurants } from '../model/restaurants';
 import { User } from '../model/user';
 
 describe('Dish', () => {
-  let dish: Dish;
+  let dish: Restaurants;
   let user: User;
 
   beforeEach(() => {
-    dish = new Dish(1, 'Pizza', 'https://example.com/pizza.jpg');
+    dish = new Restaurants(1, 'Pizza', 'https://example.com/pizza.jpg');
     user = new User(1, 'Abbas Faizi','abbas@gmail.com', "mypassword");
   });
 
