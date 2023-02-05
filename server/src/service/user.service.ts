@@ -18,7 +18,8 @@ export interface IUserService {
 
 class UserService implements IUserService{
   users : Array<User> = [];
-  restaurant: Array<Restaurants>;
+  restaurant: Array<Restaurants> = [];
+  
 
   async getUsers():Promise<Array<User>> {
     return this.users;
