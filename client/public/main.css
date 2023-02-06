@@ -1,4 +1,3 @@
-
 /*
 #login-form-wrap {
     background-color: #d00;
@@ -8,14 +7,20 @@
   } 
   */
 
-  @keyframes cycle {
-    from {background-color: #d00;}
-    50% {background-color: #7f7;}
-    to {background-color: #d00;} 
-  }
+@keyframes cycle {
+    from {
+        background-color: #d00;
+    }
+    50% {
+        background-color: #7f7;
+    }
+    to {
+        background-color: #d00;
+    }
+}
 
-  html, body {
-      height: 100%;
+html, body {
+    height: 100%;
 }
 
 #login-form-wrap {
@@ -69,11 +74,48 @@ input[type="submit"] {
     text-align: center;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin-top: 20px;
+}
+
+button {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    background-color: lightgray;
+    border: none;
+    cursor: pointer;
+}
+
+#dislike-button {
+    background-color: red;
+}
 
 
-
-
- /* this is the animation for footer in main page */
+/* this is the animation for footer in main page */
 /*
 @keyframes move-to-the-side {
   0% {
@@ -97,33 +139,33 @@ input[type="submit"] {
 
 /* this is the css for logo in login form */
 
-#login-form-logooo{
+#login-form-logooo {
 
 
-  display: inline-block;
+    display: inline-block;
 }
 
-#logoBild{
- 
-  width: 100px;
-  height: 80px;
-  padding-right: 20px;
-  margin-bottom: 20px;
+#logoBild {
+
+    width: 100px;
+    height: 80px;
+    padding-right: 20px;
+    margin-bottom: 20px;
 
 }
 
-#mainLogo{
+#mainLogo {
 
-  width: 100px;
-  height: 80px;
-  padding-right: 20px;
-  margin-bottom: 20px;
+    width: 100px;
+    height: 80px;
+    padding-right: 20px;
+    margin-bottom: 20px;
 }
 
 
 /** this is style for nav i main page**/
-#navbar-id-for{
+#navbar-id-for {
 
-  background-color: #21D192;
-  padding-top: 20px;
+    background-color: #21D192;
+    padding-top: 20px;
 }
