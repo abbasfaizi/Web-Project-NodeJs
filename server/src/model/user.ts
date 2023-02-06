@@ -22,13 +22,39 @@ export class User {
     }
 
     // push a dish (restaurant) to the dislike-array
-    like(dish:Restaurants) {
-        this.liked.push(dish);
+    like(restaurant:Restaurants) {
+        // Check it's not already liked, avoid duplicates
+        if (!this.liked.includes(restaurant)) {
+            this.liked.push(restaurant);
+        }
+
+        // If already in disliked then delete from there
+        if (this.disliked.includes(restaurant)) {
+            this.disliked = this.disliked.filter(x => x !== restaurant);
+        }
     }
 
     // push a dish (restaurant) to the liked-array
-   dislike(dish:Restaurants) {
-        this.disliked.push(dish);
+   dislike(restaurant:Restaurants) {
+        // Check it's not already liked, avoid duplicates
+        if (!this.disliked.includes(restaurant)) {
+           this.disliked.push(restaurant);
+       }
+
+       // If already in liked then delete from there
+       if (this.liked.includes(restaurant)) {
+           this.liked = this.liked.filter(x => x !== restaurant);
+       }
+    }
+
+    // get all restaurants that the user has liked
+    getLikes() {
+        return this.liked;
+    }
+
+    // get all restaurants that the user has disliked
+    getDislikes() {
+        return this.disliked;
     }
 
 }

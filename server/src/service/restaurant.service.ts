@@ -1,54 +1,48 @@
 import { Restaurants } from "../model/restaurants";
 import {User} from "../model/user";
+import {restaurantService} from "../router/restaurant.router";
 
 export interface IRestaurantService {
 
-  getRestaurants() : Promise<Array<Restaurants>>;
-
+  getRestaurants() : Promise<Map<number, Restaurants>>;
+  getRestaurant(id : number) : Promise<Restaurants>;
   addRestaurant(restaurant : Restaurants) : Promise<Restaurants>;
-
- /* like(user : User, n : number) : Promise<boolean>;
-
-  dislike(user : User, n : number) : Promise<boolean>;
-  */
+  checkRestaurant(restaurant : number) : Promise<boolean>;
 
 }
 
 class RestaurantService implements IRestaurantService{
-  foods: Array<Restaurants> = [];
 
-  async getRestaurants():Promise<Array<Restaurants>> {
-    return this.foods;
+  // Save restaurants with Map, Mapping unique ID's to Restaurant objects
+  restaurantsMap: Map<number, Restaurants> = new Map<number, Restaurants>();
+
+  // Return all stored restaurants
+  async getRestaurants() : Promise<Map<number, Restaurants>> {
+    return this.restaurantsMap;
   }
 
-  async addRestaurant(food : Restaurants): Promise<Restaurants> {
-    this.foods.push(food);
-    return food
+  // Return the found restaurant
+  async getRestaurant(id : number) : Promise<Restaurants> {
+    const restaurant = this.restaurantsMap.get(id);
+    return restaurant!;
   }
 
-  /*
-  async like(user : User, n : number) : Promise<boolean> {
-    const dish = this.foods[n]
-    if (dish == null) {
-      return false;
+  // Add to stored restaurants
+  async addRestaurant(restaurant : Restaurants) : Promise<Restaurants> {
+    this.restaurantsMap.set(restaurant.id, restaurant);
+    return restaurant;
+  }
+
+  // Check if restaurant is stored
+  async checkRestaurant(id : number) : Promise<boolean> {
+    if (this.restaurantsMap.has(id)) {
+      return true;
     }
-    user.likedBy.push(user)
-    return true;
+    return false;
   }
-
-  async dislike(user : User, n: number) : Promise<boolean> {
-    const dish = this.foods[n]
-    if (dish == null) {
-      return false;
-    }
-    dish.dislikedBy.push(user)
-    return true;
-  }
-
-   */
 
 }
 
-export function makeDishService() : IRestaurantService {
+export function makeRestaurantService() : IRestaurantService {
   return new RestaurantService();
 }

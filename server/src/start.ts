@@ -24,6 +24,6 @@ export const app = express();
 
 
 app.use(express.json());
-app.use("/dish", restaurantRouter);  // Example: http://localhost:8080/dish
+app.use("/restaurant", restaurantRouter);  // Example: http://localhost:8080/dish
 app.use("/user", userRouter); //  Example: http://localhost:8080/user
 app.use("*", defaultRouter); //   Example: http://localhost:8080
