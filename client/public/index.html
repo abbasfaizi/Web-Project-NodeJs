@@ -1,215 +1,222 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>This is assignment 1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-   
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="./main.css">
-  <link rel="stylesheet" href="test.css"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="test.css"
           type="text/css"/>
-    
-  </head>
-  <body>
+
+</head>
+<body>
 
 <!-- this part is for the header menu of the page-->
-<div  id="nfavbarToggleExternalContent">
- 
+<div id="nfavbarToggleExternalContent">
+
 </div>
 <nav class="navbar navbar-dark bg-darkd">
-  <div class="container-fluid" id="navbar-id-for">
-    <div id="login-form-logooo"> <img id="logoBild"  src="images/logoImage.png"></div>
-    </button>
-  </div>
+    <div class="container-fluid" id="navbar-id-for">
+        <div id="login-form-logooo"><img id="logoBild" src="images/logoImage.png"></div>
+        </button>
+    </div>
 </nav>
 
 
-
-<div id="main">
-  <img id="image" class="initialLeft" src="images/food8.jpg" alt="First Image">
-  
-  <div id="buttons">
-      <button id="left" onclick="prevImage()">Previous</button>
-      <button id="right" onclick="nextImage()">Next</button>
-      <h4>This is a <em> list </em> of food</h4>
-      <h3>Do you like <strong>anything</strong> you see? </h3>
-  </div>
-  
- 
-  
-
-  <button onclick="document.location='login.html'">Login page</button>
-  </div>
-  <script>
-      var imageArray = ["images/food7.jpg","images/food8.jpg","images/food1.PNG"];
-      var counter = 0;
-      function prevImage() {
-          var image = document.getElementById("image");
-          image.classList.add("slideLeft");
-          setTimeout(function(){
-              image.src = imageArray[counter];
-              counter--;
-              if(counter < 0){
-                  counter = imageArray.length-1;
-              }
-              image.style.left = "0";
-          },500);
-      }
-      function nextImage() {
-          var image = document.getElementById("image");
-          image.style.left = "100%";
-          setTimeout(function(){
-              image.src = imageArray[counter];
-              counter++;
-              if(counter>=imageArray.length){
-                  counter = 0;
-              }
-              image.style.left = "0";
-          },500);
-      }
-  </script>
+<div class="container">
+    <div class="image-container">
+        <img class="image" src="images/food1.PNG" id="current-image">
+    </div>
+    <div class="buttons">
+        <button id="dislike-button">Dislike</button>
+        <button id="like-button">Like</button>
+    </div>
+</div>
 
 
+</div>
+<script>
+    const images = ['images/food2.JPG', 'images/food3.JPG', 'images/food4.JPG'];
+    let currentIndex = 0;
+    let isButtonEnabled = true;
+
+    const currentImage = document.getElementById('current-image');
+    const dislikeButton = document.getElementById('dislike-button');
+    const likeButton = document.getElementById('like-button');
+
+    dislikeButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        isButtonEnabled = false;
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, 1500);
+
+        currentImage.style.left = '-500px';
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            currentImage.src = images[currentIndex];
+            currentImage.style.left = '500px';
+        }, 500);
+        setTimeout(() => {
+            currentImage.style.left = '0';
+        }, 1000);
+    });
+
+    likeButton.addEventListener('click', () => {
+        if (!isButtonEnabled) return;
+        isButtonEnabled = false;
+        setTimeout(() => {
+            isButtonEnabled = true;
+        }, 1500);
+
+        currentImage.style.left = '500px';
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % images.length;
+            currentImage.src = images[currentIndex];
+            currentImage.style.left = '-500px';
+        }, 500);
+        setTimeout(() => {
+            currentImage.style.left = '0';
+        }, 1000);
+    });
+</script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
 
-
-
-
-   
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-  </body>
-  
-  <!-- Remove the container, if you want to extend the Footer to full width. -->
+<!-- Remove the container, if you want to extend the Footer to full width. -->
 <div class="container my-5">
 
-  <footer class="text-center text-white fixed-bottom" style="background-color: #caced1;">
-    <!-- Grid container -->
-    <div class="container p-4">
-      <!-- Section: Images -->
-      <section class="">
-        <div class="row">
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food2.JPG"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food8.jpg"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food4.JPG"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food5.JPG"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food6.JPG"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-            <div
-                 class="bg-image hover-overlay ripple shadow-1-strong rounded box"
-                 data-ripple-color="light"
-                 >
-              <img
-                   src="images/food1.PNG"
-                   class="w-100"
-                   />
-              <a href="#!">
-                <div
-                     class="mask"
-                     style="background-color: rgba(251, 251, 251, 0.2);"
-                     ></div>
-              </a>
-            </div>
-          </div>
+    <footer class="text-center text-white fixed-bottom" style="background-color: #caced1;">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section: Images -->
+            <section class="">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food2.JPG"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food8.jpg"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food4.JPG"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food5.JPG"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food6.JPG"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                        <div
+                                class="bg-image hover-overlay ripple shadow-1-strong rounded box"
+                                data-ripple-color="light"
+                        >
+                            <img
+                                    src="images/food1.PNG"
+                                    class="w-100"
+                            />
+                            <a href="#!">
+                                <div
+                                        class="mask"
+                                        style="background-color: rgba(251, 251, 251, 0.2);"
+                                ></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Section: Images -->
         </div>
-      </section>
-      <!-- Section: Images -->
-    </div>
-    <!-- Grid container -->
+        <!-- Grid container -->
 
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: #21D192;">
-      © 2023 Copyright:
-      <a class="text-white" href="">FoodMatcher.se</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: #21D192;">
+            © 2023 Copyright:
+            <a class="text-white" href="">FoodMatcher.se</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 
 </div>
 <!-- End of .container -->
