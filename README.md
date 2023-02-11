@@ -37,3 +37,11 @@ Below we have a table that lists the github user names of the contributors and t
   </tr>
   
 </table>
+
+## How to run
+
+
+## Organization of files in the repo
+
+
+## Screenshots
