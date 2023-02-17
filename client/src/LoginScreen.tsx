@@ -6,52 +6,53 @@ import './LoginScreen.css'
 
 const Login: React.FC = () => {
     return (
-        <html lang="en">
-        <head>
-            <meta charSet="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Login</title>
-        </head>
-        <body>
-        <div id="login-form-wrap">
-            <form id="login-form">
-                <div id="login-form-logooo">
-                    <img src={logo} className={"Web-Logo"}  alt={"Logo"}/>
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card mt-5">
+                        <div className="card-header">
+                            <img src={logo} className="Web-Logo" alt="Logo" />
+                        </div>
+                        <div className="card-body">
+                            <form id="login-form">
+                                <div className="username-group">
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Username"
+                                        className="username-control"
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        placeholder="Password"
+                                        className="password-control"
+                                        required
+                                    />
+                                </div>
+                                <button type="submit" id="login" className="btn btn-primary btn-block">
+                                    Login
+                                </button>
+                            </form>
+                        </div>
+                        <div className="card-footer">
+                            <p className="text-center">
+                                Don't have an account?{" "}
+                                <a href="./createaccount.html">Create account</a>
+                            </p>
+                        </div>
+                    </div>
+                    <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
+                    <button onClick={() => (document.location = "index.html")} className="btn btn-secondary btn-block">
+                        Main page
+                    </button>
                 </div>
-                <p>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                        className="form-control"
-                        required
-                    />
-                </p>
-                <p>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Password"
-                        className="form-control"
-                        required
-                    />
-                </p>
-                <p>
-                    <input type="submit" id="login" value="Login" className="btn btn-primary" />
-                </p>
-                <p>
-                    Don't have an account?{" "}
-                    <a href="./createaccount.html">Create account</a>
-                </p>
-            </form>
+            </div>
         </div>
-        <p> Click on the button below to navigate back to the main page.</p>
-        <button onClick={() => (document.location = "index.html")} className="btn btn-secondary">
-            Main page
-        </button>
-        </body>
-        </html>
     );
 };
 
