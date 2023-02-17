@@ -1,16 +1,16 @@
 
 .container{
-    background-color: #ffffff;
+    background-color: white;
     margin-top: 5%;
     text-align: center;
-    padding: 0 0 5% 0; 
+    padding: 0 0 5% 0;
     border-radius: 20px;
     box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
 }
 
 
 .Web-Logo{
-    height: 20%;
+    height: 100%;
     width: 20%;
 }
 
@@ -42,7 +42,17 @@
     font-size: calc(10px + 2vmin);
 }
 
-.card{
+.card-footer{
+    background-color: white;
+    border: 0
+}
 
+.card-header{
+    background-color: white;
+    border: 0;
+}
+
+.card{
+    background-color: white;
     border: 0;
 }

@@ -33,3 +33,18 @@
     width: 70%;
     font-size: calc(10px + 2vmin);
 }
+
+.card-footer{
+    background-color: white;
+    border: 0
+}
+
+.card-header{
+    background-color: white;
+    border: 0;
+}
+
+.card{
+    background-color: white;
+    border: 0;
+}
