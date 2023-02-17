@@ -47,7 +47,7 @@ const Login: React.FC = () => {
                         </div>
                     </div>
                     <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-                    <button onClick={() => (document.location = "index.html")} className="btn btn-secondary btn-block">
+                    <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
                         Main page
                     </button>
                 </div>

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
+import MainPage from "./MainPage";
 
 function App() {
   return (
