@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './LoginScreen';
 import LoginScreen from "./LoginScreen";
+import RegisterScreen from "./RegisterScreen";
 
 function App() {
   return (
     <div className="App">
-      <LoginScreen/>
+      <RegisterScreen/>
     </div>
   );
 }
