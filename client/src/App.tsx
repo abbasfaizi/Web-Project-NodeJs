@@ -4,11 +4,12 @@ import './App.css';
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
 import MainPage from "./MainPage";
+import MainScreen from "./MainScreen";
 
 function App() {
   return (
     <div className="App">
-      <LoginScreen/>
+      <MainScreen/>
     </div>
   );
 }
