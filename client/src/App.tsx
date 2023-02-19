@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";
-import MainScreen from "./MainScreen";
 import axios from "axios";
 import {Restaurants} from "../../server/src/model/restaurants";
 import CreateGroup from "./CreateGroup";
