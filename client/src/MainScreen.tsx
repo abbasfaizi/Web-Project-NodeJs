@@ -3,8 +3,22 @@ import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './MainScreen.css'
+import axios from "axios";
 
 const MainScreen: React.FC = () => {
+
+    async function onClickedLike() {
+        const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
+        console.log(response.data);
+    }
+
+    async function onClickedDislike() {
+        const response = await axios.put("http://localhost:8080/user/0/0", {operation : "dislike"});
+        console.log(response.data);
+    }
+
+
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -18,10 +32,10 @@ const MainScreen: React.FC = () => {
 
                         </div>
                         <div className="card-footer">
-                            <button type="submit" id="Like" className="btn btn-outline-success custom-like-button">
+                            <button onClick={onClickedLike} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
                                 Like
                             </button>
-                            <button type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
+                            <button onClick={onClickedDislike} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
                                 Dislike
                             </button>
                         </div>
