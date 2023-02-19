@@ -2,9 +2,9 @@ import React from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './RegisterScreen.css'
+import './CreateGroup.css'
 
-const Register: React.FC = () => {
+const CreateGroup: React.FC = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -18,10 +18,10 @@ const Register: React.FC = () => {
                                 <div className="username-group">
                                     <input
                                         type="text"
-                                        id="username"
-                                        name="username"
-                                        placeholder="Username"
-                                        className="username-control"
+                                        id="group-name"
+                                        name="group-name"
+                                        placeholder="Group name"
+                                        className="group-name-control"
                                         required
                                     />
                                 </div>
@@ -34,29 +34,16 @@ const Register: React.FC = () => {
                                         required
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <input
-                                        type="password"
-                                        id="repeat-password"
-                                        placeholder="Repeat password"
-                                        className="repeat-password-control"
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" id="register" className="btn btn-primary btn-block">
-                                    Register
+                                <button type="submit" id="login" className="btn btn-primary btn-block">
+                                    Create
                                 </button>
                             </form>
                         </div>
                         <div className="card-footer">
-                            <p className="text-center">
-                                Already have an account?{" "}
-                                <a href="./createaccount.html">Login</a>
-                            </p>
                         </div>
                     </div>
                     <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-                    <button onClick={() => (document.location = "index.html")} className="btn btn-secondary btn-block">
+                    <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
                         Main page
                     </button>
                 </div>
@@ -65,4 +52,4 @@ const Register: React.FC = () => {
     );
 };
 
-export default Register;
+export default CreateGroup;

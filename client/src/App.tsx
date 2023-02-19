@@ -7,11 +7,11 @@ import MainPage from "./MainPage";
 import MainScreen from "./MainScreen";
 import axios from "axios";
 import {Restaurants} from "../../server/src/model/restaurants";
+import CreateGroup from "./CreateGroup";
 
 
 function App() {
     async function updateRestaurants() {
-        // TODO Make it possible to change URL
         const response = await axios.get<Restaurants[]>("http://localhost:8080/restaurant");
         console.log(response.data);
     }
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <MainScreen/>
+      <CreateGroup/>
     </div>
   );
 }

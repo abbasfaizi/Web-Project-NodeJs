@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './MainScreen.css'
 import axios from "axios";
 
+const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG', './images/food4.JPG'];
+
 const MainScreen: React.FC = () => {
+
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     async function onClickedLike() {
         const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
@@ -16,7 +20,6 @@ const MainScreen: React.FC = () => {
         const response = await axios.put("http://localhost:8080/user/0/0", {operation : "dislike"});
         console.log(response.data);
     }
-
 
 
     return (
