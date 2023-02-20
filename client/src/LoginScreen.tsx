@@ -4,7 +4,7 @@ import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './LoginScreen.css';
-import PageTitle from "./PageTitle";
+import { PageTitle, MainTitle } from "./PageTitle";
 
 
 const Login: React.FC = () => {

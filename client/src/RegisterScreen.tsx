@@ -3,7 +3,7 @@ import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './RegisterScreen.css'
-import PageTitle from './PageTitle';
+import { PageTitle, MainTitle } from "./PageTitle";
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');

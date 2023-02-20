@@ -4,9 +4,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 interface Props {
   title: string;
-}
 
-const PageTitle: React.FC<Props> = ({ title }) => {
+}
+export const PageTitle: React.FC<Props> = ({ title }) => {
   return (
     <h1 className="display-4 text-center my-5">
       {title}
@@ -14,4 +14,10 @@ const PageTitle: React.FC<Props> = ({ title }) => {
   );
 };
 
-export default PageTitle;
+export const MainTitle: React.FC<Props> = ({ title }) => {
+  return (
+    <h1 className="display-6 text-center my-5">
+      {title}
+    </h1>
+  );
+};

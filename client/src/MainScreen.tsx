@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './MainScreen.css'
 import axios from "axios";
+import { PageTitle, MainTitle } from "./PageTitle";
 
 const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG', './images/food4.JPG'];
 
@@ -29,6 +30,7 @@ const MainScreen: React.FC = () => {
                     <div className="card mt-5">
                         <div className="card-header">
                             <img src={logo} className="Web-Logo" alt="Logo" />
+                            <MainTitle title="Swipe your favorite food" />
                         </div>
                         <div className="card-body">
                             <img src={require('./images/food1.PNG')} className="food-image" alt="food-1" />
