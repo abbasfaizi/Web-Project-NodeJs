@@ -21,7 +21,9 @@ function App() {
 
   return (
     <div className="App">
-      <CreateGroup/>
+      
+      
+      <RegisterScreen/>
     
     </div>
   );

@@ -3,11 +3,14 @@ import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './RegisterScreen.css'
+import PageTitle from './PageTitle';
 
 const Register: React.FC = () => {
     return (
         <div className="container">
+            
             <div className="row justify-content-center">
+               <PageTitle title="Sign up for exclusive access to our services" />
                 <div className="col-md-6">
                     <div className="card mt-5">
                         <div className="card-header">
