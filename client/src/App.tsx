@@ -6,6 +6,7 @@ import RegisterScreen from "./RegisterScreen";
 import axios from "axios";
 import {Restaurants} from "../../server/src/model/restaurants";
 import CreateGroup from "./CreateGroup";
+import MainScreen from './MainScreen';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className="App">
       <CreateGroup/>
+    
     </div>
   );
 }
