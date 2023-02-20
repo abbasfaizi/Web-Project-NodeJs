@@ -3,7 +3,8 @@ import axios from 'axios';
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './LoginScreen.css'
+import './LoginScreen.css';
+import PageTitle from "./PageTitle";
 
 
 const Login: React.FC = () => {
@@ -35,6 +36,7 @@ const Login: React.FC = () => {
           <div className="card mt-5">
             <div className="card-header">
               <img src={logo} className="Web-Logo" alt="Logo" />
+              <PageTitle title="Pleas Login" />
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>

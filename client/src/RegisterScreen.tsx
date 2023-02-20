@@ -10,11 +10,12 @@ const Register: React.FC = () => {
         <div className="container">
             
             <div className="row justify-content-center">
-               <PageTitle title="Sign up for exclusive access to our services" />
+              
                 <div className="col-md-6">
                     <div className="card mt-5">
                         <div className="card-header">
                             <img src={logo} className="Web-Logo" alt="Logo" />
+                            <PageTitle title="Register now and get started" />
                         </div>
                         <div className="card-body">
                             <form id="login-form">
