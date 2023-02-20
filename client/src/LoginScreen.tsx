@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './LoginScreen.css'
-import axios from 'axios';
+
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,8 @@ const Login: React.FC = () => {
       const response = await axios.post('/api/login', {
         username: username,
         password: password
-      });
+      }
+      );
       
       // Redirect to the main page
       window.location.href = '/main';
