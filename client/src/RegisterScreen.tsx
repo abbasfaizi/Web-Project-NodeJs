@@ -99,9 +99,9 @@ const Register: React.FC = () => {
           </button>
         </div>
         <div>
-                        <p>
+                      
                             <Footer year={2023} companyName="FoodMatcher.se"/>
-                        </p>
+                      
                     </div>
       </div>
     </div>

@@ -47,9 +47,9 @@ const MainScreen: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <p>
+                        
                             <Footer year={2023} companyName="FoodMatcher.se"/>
-                        </p>
+                        
                     </div>
                     
                 </div>
