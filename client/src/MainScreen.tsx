@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './MainScreen.css'
 import axios from "axios";
 import { PageTitle, MainTitle } from "./PageTitle";
+import Footer from "./Footer";
 
 const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG', './images/food4.JPG'];
 
@@ -45,10 +46,12 @@ const MainScreen: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                    <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-                    <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
-                        Main page
-                    </button>
+                    <div>
+                        <p>
+                            <Footer year={2023} companyName="FoodMatcher.se"/>
+                        </p>
+                    </div>
+                    
                 </div>
             </div>
         </div>

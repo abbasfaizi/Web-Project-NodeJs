@@ -36,7 +36,7 @@ const Login: React.FC = () => {
           <div className="card mt-5">
             <div className="card-header">
               <img src={logo} className="Web-Logo" alt="Logo" />
-              <PageTitle title="Pleas Login" />
+              <PageTitle title="Please Login" />
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
               </p>
             </div>
           </div>
-          <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
+         
           <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
             Main page
           </button>
