@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './RegisterScreen.css'
 import { PageTitle, MainTitle } from "./PageTitle";
+import Footer from "./Footer";
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -97,6 +98,11 @@ const Register: React.FC = () => {
             Main page
           </button>
         </div>
+        <div>
+                        <p>
+                            <Footer year={2023} companyName="FoodMatcher.se"/>
+                        </p>
+                    </div>
       </div>
     </div>
   );

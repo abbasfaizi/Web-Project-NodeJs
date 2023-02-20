@@ -7,7 +7,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ companyName, year }) => {
     return (
-      <footer style={{ padding: '2rem 0' }}>
+      <footer style={{ padding: '8rem 0' }}>
         <p>&copy; {year} {companyName}</p>
       </footer>
     );

@@ -9,6 +9,7 @@ import CreateGroup from "./CreateGroup";
 import MainScreen from './MainScreen';
 
 
+
 function App() {
     async function updateRestaurants() {
         const response = await axios.get<Restaurants[]>("http://localhost:8080/restaurant");

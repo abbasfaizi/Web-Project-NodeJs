@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './LoginScreen.css';
 import { PageTitle, MainTitle } from "./PageTitle";
+import Footer from "./Footer";
 
 
 const Login: React.FC = () => {
@@ -81,6 +82,12 @@ const Login: React.FC = () => {
             Main page
           </button>
         </div>
+        
+      </div>
+      <div>
+                        <p>
+                            <Footer year={2023} companyName="FoodMatcher.se"/>
+                        </p>
       </div>
     </div>
   );
