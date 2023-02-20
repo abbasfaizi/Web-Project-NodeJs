@@ -8,7 +8,7 @@ interface Props {
 
 const PageTitle: React.FC<Props> = ({ title }) => {
   return (
-    <h1 className="display-4 text-center my-5 font-weight-bold">
+    <h1 className="display-4 text-center my-5">
       {title}
     </h1>
   );
