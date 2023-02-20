@@ -21,3 +21,11 @@ export const MainTitle: React.FC<Props> = ({ title }) => {
     </h1>
   );
 };
+
+export const NormalTitle: React.FC<Props> = ({ title }) => {
+  return (
+    <h1 className="display-6 text-center my-5">
+      {title}
+    </h1>
+  );
+};
