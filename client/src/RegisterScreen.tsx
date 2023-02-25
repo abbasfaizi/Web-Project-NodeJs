@@ -6,7 +6,9 @@ import './RegisterScreen.css'
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 
-const Register: React.FC = () => {
+function Register(props : {
+  goToMainPage : () => void
+}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -89,12 +91,12 @@ const Register: React.FC = () => {
             <div className="card-footer">
               <p className="text-center">
                 Already have an account?{" "}
-                <a href="./createaccount.html">Login</a>
+                <a href="">Login</a>
               </p>
             </div>
           </div>
           <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-          <button onClick={() => (document.location = "index.html")} className="btn btn-secondary btn-block">
+          <button onClick={e => {e.preventDefault(); props.goToMainPage();}} className="btn btn-secondary btn-block">
             Main page
           </button>
         </div>

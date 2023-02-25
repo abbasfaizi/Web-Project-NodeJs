@@ -8,7 +8,10 @@ import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 
 
-const Login: React.FC = () => {
+function Login(props : {
+  goToRegisterPage : () => void
+  goToMainPage : () => void
+}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -29,6 +32,7 @@ const Login: React.FC = () => {
       setError('Invalid username or password');
     }
   }
+
 
   return (
     <div className="container">
@@ -73,12 +77,15 @@ const Login: React.FC = () => {
             <div className="card-footer">
               <p className="text-center">
                 Don't have an account?{" "}
-                <a href="./createaccount.html">Create account</a>
+                <a href="" onClick={e => {
+                  e.preventDefault();
+                  props.goToRegisterPage();
+                }}>Create account</a>
               </p>
             </div>
           </div>
          
-          <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
+          <button onClick={e => {e.preventDefault(); props.goToMainPage();}} className="btn btn-secondary btn-block">
             Main page
           </button>
         </div>
