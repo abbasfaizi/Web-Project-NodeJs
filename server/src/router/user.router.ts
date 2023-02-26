@@ -9,36 +9,46 @@ export const userRouter = express.Router()
 
 /* -------------- Test Set [U] ------------- */
 console.log("Inputting User Test Set ------------------------->")
-userService.addUser(new User (0, "a", "", ""));
-userService.addUser(new User (1, "b", "", ""));
-userService.addUser(new User (3, "c", "", ""));
-userService.addUser(new User (4, "d", "", ""));
+userService.registerUser("user0", "a");
+userService.registerUser("user1", "b");
+userService.registerUser("user2", "c");
+userService.registerUser("user3", "d");
 console.log(userService.getUsers());
 /* --------------------------------------*/
 
 
 // GET Handlers
 userRouter.get("/:userid/likes", async (
-    req: Request<{ userid : string }, {}, {}>,
-    res: Response<Array<Restaurants> | string>
+    req: Request<{ userid : string }, {}, {}> & {
+        session : {user ?: User}},
+    res: Response<Set<Restaurants> | string>
 ) => {
 
     try {
 
-        // Check id for null
-        if (req.params.userid == null ) {
-            res.status(400).send("Faulty call! Index is null");
+        console.log(req.session.user);
+        // Check session to see if user is logged in
+        if (req.session.user == null) {
+            res.status(401).send("Not logged in");
             return;
         }
-        // Parse & Check id for bound
-        const id = parseInt(req.params.userid, 10);
-        if (!(id >= 0)) {
-            res.status(400).send("Index out of bound! Must be equal to or greater than 0")
+
+        // Check id for null
+        if (req.params.userid == null ) {
+            res.status(400).send("Faulty call! ID is null");
+            return;
+        }
+
+        const id : string = req.params.userid; // Unique user ID
+        const exists : boolean = await userService.checkUser(id);
+        if (!exists) {
+            res.status(404).send("Couldn't find the user");
+            return;
         }
 
         // Get & Send all user liked restaurants
         const restaurants = await userService.getLikedRestaurants(id);
-        res.status(200).send(restaurants);
+        res.status(200).send(JSON.stringify([...restaurants]));
         console.log(restaurants);
 
     } catch (e : any) {
@@ -47,26 +57,36 @@ userRouter.get("/:userid/likes", async (
 });
 
 userRouter.get("/:userid/dislikes", async (
-    req: Request<{ userid : string }, {}, {}>,
-    res: Response<Array<Restaurants> | string>
+    req: Request<{ userid : string }, {}, {}> & {
+        session : {user ?: User}},
+    res: Response<Set<Restaurants> | string>
 ) => {
 
     try {
+
+        console.log(req.session.user);
+        // Check session to see if user is logged in
+        if (req.session.user == null) {
+            res.status(401).send("Not logged in");
+            return;
+        }
 
         // Check id for null
         if (req.params.userid == null ) {
             res.status(400).send("Faulty call! Index is null");
             return;
         }
-        // Parse & Check id for bound
-        const id = parseInt(req.params.userid, 10);
-        if (!(id >= 0)) {
-            res.status(400).send("Index out of bound! Must be equal to or greater than 0")
+
+        const id : string = req.params.userid; // Unique user ID
+        const exists : boolean = await userService.checkUser(id);
+        if (!exists) {
+            res.status(404).send("Couldn't find the user");
+            return;
         }
 
         // Get & Send all user disliked restaurants
         const restaurants = await userService.getDislikedRestaurants(id);
-        res.status(200).send(restaurants);
+        res.status(200).send(JSON.stringify([...restaurants]));
         console.log(restaurants);
 
     } catch (e : any) {
@@ -74,16 +94,74 @@ userRouter.get("/:userid/dislikes", async (
     }
 });
 
-// POST Handler
-userRouter.post("*", async (
-    req: Request<any>,
-    res: Response<any>
+// POST Handlers
+userRouter.post("/register", async (
+    req: Request<{}, {}, {userid : string, password : string}>,
+    res: Response<string>
 ) => {
 
     try {
 
-        // TODO
-        res.status(200).send("Welcome to the User Page!! [POST]");
+        // Check request body parameters for null
+        if (req.body.userid == null || req.body.password == null ) {
+            res.status(400).send("Missing username or password!");
+            return;
+        }
+
+        const id : string = req.body.userid; // Given User id
+        const password : string = req.body.password; // Given User password
+
+        // Check username is not already taken and register user
+        const notTaken : boolean = await userService.registerUser(id, password);
+        if (!notTaken) {
+            res.status(409).send("Username/ID is already Taken!");
+            return;
+        }
+
+        res.status(201).send("User has been registered");
+
+    } catch (e : any) {
+        res.status(500).send(e.message);
+    }
+});
+
+userRouter.post("/login", async (
+    req: Request<{}, {}, {userid : string, password : string}> & {
+         session : {user ?: User}},
+    res: Response<string>
+) => {
+
+    try {
+
+        console.log(req.body);
+
+        // Check request body parameters for null
+        if (req.body.userid == null || req.body.password == null ) {
+            res.status(400).send("Missing username or password!");
+            return;
+        }
+
+        const id : string = req.body.userid; // Given User id
+        const password : string = req.body.password; // Given User password
+
+        // Check user is registered
+        const found = await userService.checkUser(id);
+        if (!found) {
+            res.status(401).send("Incorrect Username or Password!");
+            return;
+        }
+
+        // Check password is correct
+        const user = await userService.findUser(id);
+        if (user.password !== password) {
+            res.status(401).send("Incorrect Username or Password!");
+            return;
+        }
+
+        req.session.user = user;
+        res.status(200).send("Logged in");
+        console.log("logged in"); // -----
+
     } catch (e : any) {
         res.status(500).send(e.message);
     }
@@ -91,13 +169,18 @@ userRouter.post("*", async (
 
 // PUT Handler
 userRouter.put("/:userid/:rid", async (
-    req: Request<{userid : string, rid : string }, {}, {operation : string}>,
+    req: Request<{userid : string, rid : string }, {}, {operation : string}> & {
+        session : {user ?: User}},
     res: Response<string>
 ) => {
 
     try {
-
         console.log("--------------------------------->");
+        console.log(req.session.user);
+        if (req.session.user == null) {
+            res.status(401).send("Not logged in");
+            return;
+        }
 
         // Check path indexes and request body for null
         if ((req.params.userid == null) || (req.params.rid == null) ||
@@ -106,9 +189,9 @@ userRouter.put("/:userid/:rid", async (
             return;
         }
         // Parse & Check id for bound
-        const uid = parseInt(req.params.userid, 10);
-        const rid = parseInt(req.params.rid, 10);
-        if (!(uid >= 0 && rid >= 0)) {
+        const id : string = req.params.userid; // Unique user ID
+        const rid : number = parseInt(req.params.rid, 10); // Unique restaurant ID
+        if (!(rid >= 0)) {
             res.status(400).send("Index out of bound! Must be equal to or greater than 0")
             return;
         }
@@ -138,9 +221,9 @@ userRouter.put("/:userid/:rid", async (
 
         let completed : boolean;
         if (like) {
-            completed = await userService.likeRestaurant(uid, restaurant);
+            completed = await userService.likeRestaurant(id, restaurant);
         } else {
-            completed = await userService.dislikeRestaurant(uid, restaurant);
+            completed = await userService.dislikeRestaurant(id, restaurant);
         }
 
         if (!completed) {

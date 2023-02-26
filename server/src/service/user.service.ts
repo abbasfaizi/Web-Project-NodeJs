@@ -1,16 +1,17 @@
-import { User } from "../model/user";
+import {User} from "../model/user";
 import {Restaurants} from "../model/restaurants";
-import {restaurantService} from "../router/restaurant.router";
 
 export interface IUserService {
 
-  getUsers() : Promise<Map<number, User>>;
-  addUser(user : User) : Promise<boolean>;
-  deleteUser(id : number) : Promise<boolean>;
-  likeRestaurant(id : number, restaurant : Restaurants) : Promise<boolean>;
-  dislikeRestaurant(id : number, restaurant : Restaurants) : Promise<boolean>;
-  getLikedRestaurants(id : number) : Promise<Array<Restaurants>>;
-  getDislikedRestaurants(id : number) : Promise<Array<Restaurants>>;
+  getUsers() : Promise<Map<string, User>>;
+  findUser(id : string) : Promise<User>;
+  checkUser(id : string) : Promise<boolean>;
+  registerUser(id : string, password : string) : Promise<boolean>;
+  deleteUser(id : string) : Promise<boolean>;
+  likeRestaurant(id : string, restaurant : Restaurants) : Promise<boolean>;
+  dislikeRestaurant(id : string, restaurant : Restaurants) : Promise<boolean>;
+  getLikedRestaurants(id : string) : Promise<Set<Restaurants>>;
+  getDislikedRestaurants(id : string) : Promise<Set<Restaurants>>;
 
 }
 
@@ -18,26 +19,36 @@ export interface IUserService {
 class UserService implements IUserService{
 
   // Save users with Map, Mapping unique ID's to User objects
-  users : Map<number,User> = new Map<number, User>();
+  users : Map<string,User> = new Map<string, User>();
 
   // Return all users
-  async getUsers():Promise<Map<number, User>> {
+  async getUsers():Promise<Map<string, User>> {
     return this.users;
   }
 
+  // Return the user
+  async findUser(id : string) : Promise<User> {
+    return this.users.get(id)!;
+  }
+
+  // Checks if user exists
+  async checkUser(id : string):Promise<boolean> {
+    return this.users.has(id);
+  }
+
   // Add a user
-  async addUser(user : User) : Promise<boolean> {
-    if ((user == null) ||
-        (this.users.has(user.id))) {
+  async registerUser(id : string, password : string) : Promise<boolean> {
+    if (this.users.has(id)) {
       return false;
     }
 
+    let user = new User(id, password);
     this.users.set(user.id, user);
     return true;
   }
 
   // Delete a user
-  async deleteUser(id : number) : Promise<boolean> {
+  async deleteUser(id : string) : Promise<boolean> {
     if (!this.users.has(id)) {
       return false;
     }
@@ -47,7 +58,7 @@ class UserService implements IUserService{
   }
 
   // Save liked restaurant to user
-  async likeRestaurant(id : number, restaurant : Restaurants) : Promise<boolean> {
+  async likeRestaurant(id : string, restaurant : Restaurants) : Promise<boolean> {
     if (!this.users.has(id)) {
       return false;
     }
@@ -59,7 +70,7 @@ class UserService implements IUserService{
   }
 
   // Save disliked restaurant to user
-  async dislikeRestaurant(id : number, restaurant: Restaurants) : Promise<boolean> {
+  async dislikeRestaurant(id : string, restaurant: Restaurants) : Promise<boolean> {
     if (!this.users.has(id)) {
       return false;
     }
@@ -71,13 +82,13 @@ class UserService implements IUserService{
   }
 
   // Return all liked restaurants
-  async getLikedRestaurants(id : number) : Promise<Array<Restaurants>> {
+  async getLikedRestaurants(id : string) : Promise<Set<Restaurants>> {
     const user = this.users.get(id);
     return user!.getLikes();
   }
 
   // Return all disliked restaurants
-  async getDislikedRestaurants(id : number) : Promise<Array<Restaurants>> {
+  async getDislikedRestaurants(id : string) : Promise<Set<Restaurants>> {
     const user = this.users.get(id);
     return user!.getDislikes();
   }

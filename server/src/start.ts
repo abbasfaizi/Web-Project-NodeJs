@@ -3,7 +3,8 @@
 */
 
 
-import express from "express";
+import express, { Express } from "express";
+import session from "express-session"
 import { restaurantRouter } from "./router/restaurant.router";
 import { userRouter } from "./router/user.router";
 import {defaultRouter} from "./router/default.router";
@@ -16,7 +17,7 @@ import cors from "cors";
 
 
 
-export const app = express();
+export const app : Express = express();
 
 
 /**
@@ -25,6 +26,11 @@ export const app = express();
 
 
 app.use(express.json());
+app.use(session({
+    secret : "Your secret key",
+    resave : false,
+    saveUninitialized : true
+}));
 app.use(cors());
 app.use("/restaurant", restaurantRouter);  // Example: http://localhost:8080/dish
 app.use("/user", userRouter); //  Example: http://localhost:8080/user
