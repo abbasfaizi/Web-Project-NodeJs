@@ -10,6 +10,7 @@ export class User {
     liked: Set<Restaurants>;
     disliked: Set<Restaurants>;
 
+    // Create New User
     constructor(id: string, password:string) {
         this.id = id;
         this.password = password;
@@ -38,12 +39,12 @@ export class User {
     }
 
     // get all restaurants that the user has liked
-    getLikes() {
+    getLikes() : Set<Restaurants> {
         return this.liked;
     }
 
     // get all restaurants that the user has disliked
-    getDislikes() {
+    getDislikes() : Set<Restaurants> {
         return this.disliked;
     }
 
