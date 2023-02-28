@@ -16,6 +16,7 @@ console.log(restaurantService.getRestaurants());
 
 
 // GET handlers
+
 restaurantRouter.get("/", async (
     req: Request<{}, {}, {}>,
     res: Response< Map<number, Restaurants> | string>
@@ -32,6 +33,7 @@ restaurantRouter.get("/", async (
     }
 
 });
+
 
 restaurantRouter.get("/:rid", async (
     req: Request<{rid : string }, {}, {}>,

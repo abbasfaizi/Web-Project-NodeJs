@@ -11,6 +11,8 @@ const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG',
 
 const MainScreen: React.FC = () => {
 
+    // const response = await axios.get("http://localhost:8080/restaurant");
+
     const [currentIndex, setCurrentIndex] = useState(0);
 
     async function onClickedLike() {

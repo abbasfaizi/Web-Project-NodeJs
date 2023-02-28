@@ -5,6 +5,17 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './RegisterScreen.css'
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
+import axios from "axios";
+
+
+async function clickedRegister(username : string, password : string) {
+  console.log(username, password);
+  const response = await axios.post("http://localhost:8080/user/register", {
+    "userid": username,
+    "password": password
+  });
+  console.log(response.data);
+}
 
 function Register(props : {
   goToMainPage : () => void
@@ -83,7 +94,7 @@ function Register(props : {
                   />
                 </div>
                 {registrationError && <div className="alert alert-danger">{registrationError}</div>}
-                <button type="submit" id="register" className="btn btn-primary btn-block">
+                <button type="submit" id="register" className="btn btn-primary btn-block" onClick={() => clickedRegister(username, password)}>
                   Register
                 </button>
               </form>

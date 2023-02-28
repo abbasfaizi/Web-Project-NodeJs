@@ -17,3 +17,4 @@ defaultRouter.post("*", async (req, res) => {
 defaultRouter.put("*", async (req, res) => {
     res.status(404).send("Wrong Page!! [PUT] ")
 });
+
