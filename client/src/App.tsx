@@ -30,9 +30,10 @@ function ErrorPage(){
 
 function App() {
 
-    useEffect(() => {
+   /* useEffect(() => {
         updateRestaurants();
     }, []);
+    */
 
     const [page, setPage] = useState<Page>(Page.LOGIN);
 

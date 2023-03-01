@@ -6,28 +6,48 @@ import './MainScreen.css'
 import axios from "axios";
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
+import {Restaurants} from "../../server/src/model/restaurants"
 
-const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG', './images/food4.JPG'];
+async function onClickedLike() {
+    const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
+    console.log(response.data);
+}
+
+async function onClickedDislike() {
+    const response = await axios.put("http://localhost:8080/user/0/0", {operation : "dislike"});
+    console.log(response.data);
+}
+
+async function fetchRestaurants(){
+    const response = await axios.get("http://localhost:8080/restaurant");
+
+    if(response.status == 200){
+        var restaurants_arr : Restaurants = response.data;
+        console.log(restaurants_arr)
+    }
+
+}
 
 function MainScreen(props : {
     goToCreateGroupPage : () => void;
     goToJoinGroupPage : () => void;
 }) {
 
-    // const response = await axios.get("http://localhost:8080/restaurant");
+    void fetchRestaurants();
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    async function onClickedLike() {
-        const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
-        console.log(response.data);
-    }
-
-    async function onClickedDislike() {
-        const response = await axios.put("http://localhost:8080/user/0/0", {operation : "dislike"});
-        console.log(response.data);
-    }
-
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [images, setImages] = useState<string[]>([
+        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/3655916/pexels-photo-3655916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/1527603/pexels-photo-1527603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/1633525/pexels-photo-1633525.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    ]);
 
     return (
         <div className="container">
@@ -39,14 +59,14 @@ function MainScreen(props : {
                             <MainTitle title="Swipe your favorite food" />
                         </div>
                         <div className="card-body">
-                            <img src={require('./images/food1.PNG')} className="food-image" alt="food-1" />
+                            <img src={images[currentIndex]} className="food-image" alt="food-image" />
 
                         </div>
                         <div className="card-footer">
-                            <button onClick={onClickedLike} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
+                            <button onClick={e => {e.preventDefault(); onClickedLike(); setCurrentIndex(currentIndex+1);}} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
                                 Like
                             </button>
-                            <button onClick={onClickedDislike} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
+                            <button onClick={e => {e.preventDefault(); onClickedDislike(); setCurrentIndex(currentIndex+1)}} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
                                 Dislike
                             </button>
                         </div>
