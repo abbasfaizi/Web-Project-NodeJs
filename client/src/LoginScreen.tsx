@@ -8,12 +8,17 @@ import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 
 
-async function clickedLogin(username : string, password : string) {
+async function clickedLogin(username : string, password : string, props: () => void) {
   const response = await axios.post("http://localhost:8080/user/login", {
     "userid": username,
     "password": password
   });
   console.log(response.data);
+
+  if (response.status == 200){
+    props();
+  }
+
 }
 
 
@@ -78,7 +83,7 @@ function Login(props : {
                   />
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}
-                <button type="submit" id="login" className="btn btn-primary btn-block" onClick={() => clickedLogin(username, password)}>
+                <button type="submit" id="login" className="btn btn-primary btn-block" onClick={() => clickedLogin(username, password, props.goToMainPage)}>
                   Login
                 </button>
               </form>

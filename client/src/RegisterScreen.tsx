@@ -8,17 +8,23 @@ import Footer from "./Footer";
 import axios from "axios";
 
 
-async function clickedRegister(username : string, password : string) {
+async function clickedRegister(username: string, password: string, props: () => void) {
   console.log(username, password);
   const response = await axios.post("http://localhost:8080/user/register", {
     "userid": username,
     "password": password
   });
   console.log(response.data);
+
+  if(response.status == 201){
+    props();
+  }
+
 }
 
 function Register(props : {
   goToMainPage : () => void
+  goToLoginPage : () => void
 }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -94,7 +100,7 @@ function Register(props : {
                   />
                 </div>
                 {registrationError && <div className="alert alert-danger">{registrationError}</div>}
-                <button type="submit" id="register" className="btn btn-primary btn-block" onClick={() => clickedRegister(username, password)}>
+                <button type="submit" id="register" className="btn btn-primary btn-block" onClick={() => clickedRegister(username, password, props.goToLoginPage)}>
                   Register
                 </button>
               </form>

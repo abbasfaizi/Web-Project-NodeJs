@@ -48,6 +48,7 @@ function App() {
             return <RegisterScreen
             goToMainPage={() => {setPage(Page.MAIN)
             }}
+            goToLoginPage={() => {setPage(Page.LOGIN)}}
             />;
         case Page.CREATEGROUP:
             return <CreateGroup/>;
