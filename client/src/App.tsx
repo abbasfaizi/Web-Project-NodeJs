@@ -6,6 +6,7 @@ import RegisterScreen from "./RegisterScreen";
 import axios from "axios";
 import {Restaurants} from "../../server/src/model/restaurants";
 import CreateGroup from "./CreateGroup";
+import JoinGroupPage from "./JoinGroupPage";
 import MainScreen from "./MainScreen";
 
 
@@ -13,6 +14,7 @@ enum Page {
     LOGIN,
     REGISTER,
     CREATEGROUP,
+    JOINGROUP,
     MAIN,
     ERROR
 }
@@ -52,8 +54,13 @@ function App() {
             />;
         case Page.CREATEGROUP:
             return <CreateGroup/>;
+        case Page.JOINGROUP:
+            return <JoinGroupPage/>;
         case Page.MAIN:
-            return <MainScreen/>;
+            return <MainScreen
+            goToCreateGroupPage={() => {setPage(Page.CREATEGROUP)}}
+            goToJoinGroupPage={() => {setPage(Page.JOINGROUP)}}
+            />;
         case Page.ERROR:
             return <ErrorPage/>
     }

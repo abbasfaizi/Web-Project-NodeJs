@@ -2,9 +2,9 @@ import React from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './CreateGroup.css'
+import './JoinGroupPage.css'
 
-function CreateGroup() {
+function JoinGroupPage(){
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -35,7 +35,7 @@ function CreateGroup() {
                                     />
                                 </div>
                                 <button type="submit" id="login" className="btn btn-primary btn-block">
-                                    Create
+                                    Join
                                 </button>
                             </form>
                         </div>
@@ -52,4 +52,4 @@ function CreateGroup() {
     );
 };
 
-export default CreateGroup;
+export default JoinGroupPage;

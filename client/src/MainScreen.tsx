@@ -9,7 +9,10 @@ import Footer from "./Footer";
 
 const foods = ['./images/food1.PNG', './images/food2.JPG', './images/food3.JPG', './images/food4.JPG'];
 
-const MainScreen: React.FC = () => {
+function MainScreen(props : {
+    goToCreateGroupPage : () => void;
+    goToJoinGroupPage : () => void;
+}) {
 
     // const response = await axios.get("http://localhost:8080/restaurant");
 
@@ -47,6 +50,15 @@ const MainScreen: React.FC = () => {
                                 Dislike
                             </button>
                         </div>
+                        <div className="bottom-buttons">
+                            <button onClick={e => {e.preventDefault(); props.goToCreateGroupPage();}} id="create-group" className="btn btn-info btn-block create-button">
+                                Create Group
+                            </button>
+                            <button onClick={e => {e.preventDefault(); props.goToJoinGroupPage();}} id="join-group" className="btn btn-info btn-block join-group-button">
+                                Join Group
+                            </button>
+                        </div>
+
                     </div>
                     <div>
                         
