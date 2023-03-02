@@ -7,6 +7,7 @@ import axios from "axios";
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 import {Restaurants} from "../../server/src/model/restaurants"
+axios.defaults.withCredentials = true;
 
 async function onClickedLike() {
     const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
@@ -19,11 +20,18 @@ async function onClickedDislike() {
 }
 
 async function fetchRestaurants(){
-    const response = await axios.get("http://localhost:8080/restaurant");
+    const response = await axios.get<Array<Restaurants>>("http://localhost:8080/restaurant");
+    console.log(response);
 
     if(response.status == 200){
-        var restaurants_arr : Restaurants = response.data;
-        console.log(restaurants_arr)
+        const test = response.data[1].imageUrl;
+        console.log(test);
+
+        /*let restaurants_arr : Restaurants = response.data;
+
+        console.log(restaurants_arr);
+        console.log(restaurants_arr.imageUrl);
+        return restaurants_arr; */
     }
 
 }
@@ -32,8 +40,7 @@ function MainScreen(props : {
     goToCreateGroupPage : () => void;
     goToJoinGroupPage : () => void;
 }) {
-
-    void fetchRestaurants();
+    fetchRestaurants();
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [images, setImages] = useState<string[]>([

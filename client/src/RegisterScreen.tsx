@@ -6,7 +6,7 @@ import './RegisterScreen.css'
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 
 async function clickedRegister(username: string, password: string, props: () => void) {
   console.log(username, password);

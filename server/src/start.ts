@@ -31,7 +31,10 @@ app.use(session({
     resave : false,
     saveUninitialized : true
 }));
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials : true
+}));
 app.use("/restaurant", restaurantRouter);  // Example: http://localhost:8080/dish
 app.use("/user", userRouter); //  Example: http://localhost:8080/user
 app.use("*", defaultRouter); //   Example: http://localhost:8080

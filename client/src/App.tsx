@@ -8,6 +8,7 @@ import {Restaurants} from "../../server/src/model/restaurants";
 import CreateGroup from "./CreateGroup";
 import JoinGroupPage from "./JoinGroupPage";
 import MainScreen from "./MainScreen";
+axios.defaults.withCredentials = true;
 
 
 enum Page {

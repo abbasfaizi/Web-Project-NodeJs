@@ -6,6 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './LoginScreen.css';
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
+axios.defaults.withCredentials = true;
 
 
 async function clickedLogin(username : string, password : string, props: () => void) {
