@@ -1,44 +1,35 @@
-import { Restaurants } from "../model/restaurants";
-import {User} from "../model/user";
-import {restaurantService} from "../router/restaurant.router";
-
-export interface IRestaurantService {
-
-  getRestaurants() : Promise<Map<number, Restaurants>>;
-  getRestaurant(id : number) : Promise<Restaurants>;
-  addRestaurant(restaurant : Restaurants) : Promise<Restaurants>;
-  checkRestaurant(restaurant : number) : Promise<boolean>;
-
-}
+import {IRestaurantService} from "./restaurant.interface";
+import {MRestaurants} from "../model/restaurants.model";
 
 class RestaurantService implements IRestaurantService{
 
   // Save restaurants with Map, Mapping unique ID's to Restaurant objects
-  restaurantsMap: Map<number, Restaurants> = new Map<number, Restaurants>();
+  restaurantsMap: Map<number, MRestaurants> = new Map<number, MRestaurants>();
 
-  // Return all stored restaurants
-  async getRestaurants() : Promise<Map<number, Restaurants>> {
-    return this.restaurantsMap;
-  }
-
-  // Return the found restaurant
-  async getRestaurant(id : number) : Promise<Restaurants> {
-    const restaurant = this.restaurantsMap.get(id);
-    return restaurant!;
-  }
-
-  // Add to stored restaurants
-  async addRestaurant(restaurant : Restaurants) : Promise<Restaurants> {
+  // Create & Add to stored restaurants
+  async createRestaurant(id : number, name : string, imageUrl : string) : Promise<boolean> {
+    if (this.restaurantsMap.has(id)) {
+      return false;
+    }
+    const restaurant : MRestaurants = new MRestaurants(id, name, imageUrl);
     this.restaurantsMap.set(restaurant.id, restaurant);
-    return restaurant;
+    return true;
   }
 
   // Check if restaurant is stored
   async checkRestaurant(id : number) : Promise<boolean> {
-    if (this.restaurantsMap.has(id)) {
-      return true;
-    }
-    return false;
+    return this.restaurantsMap.has(id);
+  }
+
+  // Return the found restaurant
+  async getRestaurant(id : number) : Promise<MRestaurants> {
+    const restaurant = this.restaurantsMap.get(id);
+    return restaurant!;
+  }
+
+  // Return all stored restaurants
+  async getRestaurants() : Promise<Map<number, MRestaurants>> {
+    return this.restaurantsMap;
   }
 
 }
