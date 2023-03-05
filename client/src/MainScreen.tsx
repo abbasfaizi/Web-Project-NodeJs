@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -7,6 +7,7 @@ import axios from "axios";
 import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 import {Restaurants} from "../../server/src/model/restaurants"
+import {response} from "express";
 axios.defaults.withCredentials = true;
 
 async function onClickedLike() {
@@ -22,39 +23,42 @@ async function onClickedDislike() {
 async function fetchRestaurants(){
     const response = await axios.get<Array<Restaurants>>("http://localhost:8080/restaurant");
     console.log(response);
+    // response.data[0].imageUrl;
 
     if(response.status == 200){
-        const test = response.data[1].imageUrl;
-        console.log(test);
-
-        /*let restaurants_arr : Restaurants = response.data;
-
-        console.log(restaurants_arr);
-        console.log(restaurants_arr.imageUrl);
-        return restaurants_arr; */
+        return response.data;
     }
+}
 
+interface Matrix {
+    rows: number[][];
 }
 
 function MainScreen(props : {
     goToCreateGroupPage : () => void;
     goToJoinGroupPage : () => void;
 }) {
-    fetchRestaurants();
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [images, setImages] = useState<string[]>([
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/3655916/pexels-photo-3655916.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/1527603/pexels-photo-1527603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "https://images.pexels.com/photos/1633525/pexels-photo-1633525.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    ]);
+    const [images, setImages] = useState<string[]>([]);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get<Array<Array<Restaurants>>>("http://localhost:8080/restaurant");
+
+                let imageUrls : string[] = [];
+                for (let i = 0; i < response.data.length; i++){
+                    imageUrls[i] = response.data[i][1].imageUrl;
+                    console.log(response.data[i][1].imageUrl);
+                }
+                setImages(imageUrls);
+            } catch (error){
+                console.error(error);
+            }
+        }
+        fetchImages();
+    }, []);
 
     return (
         <div className="container">
