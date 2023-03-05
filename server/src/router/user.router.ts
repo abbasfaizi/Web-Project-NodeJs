@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { makeUserService } from "../service/user.service";
+import { makeUserService } from "../../src/db/service/user.service";
 import { User } from "../model/user";
 import {restaurantService} from "./restaurant.router";
 import {Restaurants} from "../model/restaurants";
@@ -18,8 +18,8 @@ console.log(userService.getUsers());
 
 
 // GET Handlers
-userRouter.get("/:userid/likes", async (
-    req: Request<{ userid : string }, {}, {}> & {
+userRouter.get("/likes", async (
+    req: Request<{}, {}, {}> & {
         session : {user ?: User}},
     res: Response<Set<Restaurants> | string>
 ) => {
@@ -34,12 +34,12 @@ userRouter.get("/:userid/likes", async (
         }
 
         // Check id for null
-        if (req.params.userid == null ) {
+        if (req.session.user.id == null ) {
             res.status(400).send("Faulty call! ID is null");
             return;
         }
 
-        const id : string = req.params.userid; // Unique user ID
+        const id : string = req.session.user.id; // Unique user ID
         const exists : boolean = await userService.checkUser(id);
         if (!exists) {
             res.status(404).send("Couldn't find the user");
@@ -52,12 +52,13 @@ userRouter.get("/:userid/likes", async (
         console.log(restaurants);
 
     } catch (e : any) {
+        console.log(e);
         res.status(500).send(e.message);
     }
 });
 
-userRouter.get("/:userid/dislikes", async (
-    req: Request<{ userid : string }, {}, {}> & {
+userRouter.get("/dislikes", async (
+    req: Request<{}, {}, {}> & {
         session : {user ?: User}},
     res: Response<Set<Restaurants> | string>
 ) => {
@@ -72,12 +73,12 @@ userRouter.get("/:userid/dislikes", async (
         }
 
         // Check id for null
-        if (req.params.userid == null ) {
+        if (req.session.user.id == null ) {
             res.status(400).send("Faulty call! Index is null");
             return;
         }
 
-        const id : string = req.params.userid; // Unique user ID
+        const id : string = req.session.user.id; // Unique user ID
         const exists : boolean = await userService.checkUser(id);
         if (!exists) {
             res.status(404).send("Couldn't find the user");
@@ -90,6 +91,7 @@ userRouter.get("/:userid/dislikes", async (
         console.log(restaurants);
 
     } catch (e : any) {
+        console.log(e);
         res.status(500).send(e.message);
     }
 });
@@ -108,6 +110,18 @@ userRouter.post("/register", async (
             return;
         }
 
+        if (typeof (req.body.userid) !== "string") {
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- username has type
+            ${typeof (req.body.userid)}`);
+            return;
+        }
+
+        if (typeof (req.body.password) !== "string") {
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- password has type
+            ${typeof (req.body.password)}`);
+            return;
+        }
+
         const id : string = req.body.userid; // Given User id
         const password : string = req.body.password; // Given User password
 
@@ -121,6 +135,7 @@ userRouter.post("/register", async (
         res.status(201).send("User has been registered");
 
     } catch (e : any) {
+        console.log(e);
         res.status(500).send(e.message);
     }
 });
@@ -138,6 +153,18 @@ userRouter.post("/login", async (
         // Check request body parameters for null
         if (req.body.userid == null || req.body.password == null ) {
             res.status(400).send("Missing username or password!");
+            return;
+        }
+
+        if (typeof (req.body.userid) !== "string") {
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- username has type
+            ${typeof (req.body.userid)}`);
+            return;
+        }
+
+        if (typeof (req.body.password) !== "string") {
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- password has type
+        ${typeof (req.body.password)}`);
             return;
         }
 
@@ -163,13 +190,40 @@ userRouter.post("/login", async (
         console.log("logged in"); // -----
 
     } catch (e : any) {
+        console.log(e);
         res.status(500).send(e.message);
     }
 });
 
+userRouter.delete("/logout", async (
+    req: Request<{ rid : string }, {}, {operation : string}> & {
+        session : {user ?: User}},
+    res: Response<string>
+) => {
+
+    try {
+        console.log("--------------------------------->");
+        console.log(req.session.user);
+        if (req.session.user == null) {
+            res.status(401).send("Not logged in");
+            return;
+        }
+
+        req.session.user = undefined;
+        res.status(200).send("Logged out");
+        console.log("logged out"); // -----
+
+    } catch (e : any) {
+        console.log(e);
+        res.status(500).send(e.message);
+    }
+
+});
+
+
 // PUT Handler
-userRouter.put("/:userid/:rid", async (
-    req: Request<{userid : string, rid : string }, {}, {operation : string}> & {
+userRouter.put("/:rid", async (
+    req: Request<{ rid : string }, {}, {operation : string}> & {
         session : {user ?: User}},
     res: Response<string>
 ) => {
@@ -183,13 +237,20 @@ userRouter.put("/:userid/:rid", async (
         }
 
         // Check path indexes and request body for null
-        if ((req.params.userid == null) || (req.params.rid == null) ||
+        if ((req.session.user.id == null) || (req.params.rid == null) ||
             (req.body.operation == null)) {
             res.status(400).send("Faulty call! Index/operation can't be null");
             return;
         }
+
+        if (typeof (req.body.operation) !== "string") {
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- operation has type
+            ${typeof (req.body.operation)}`);
+            return;
+        }
+
         // Parse & Check id for bound
-        const id : string = req.params.userid; // Unique user ID
+        const id : string = req.session.user.id; // Unique user ID
         const rid : number = parseInt(req.params.rid, 10); // Unique restaurant ID
         if (!(rid >= 0)) {
             res.status(400).send("Index out of bound! Must be equal to or greater than 0")
@@ -212,12 +273,13 @@ userRouter.put("/:userid/:rid", async (
         }
 
         // Check the restaurant for the given index exists
-        const found = await restaurantService.checkRestaurant(rid);
+        const found : boolean = await restaurantService.checkRestaurant(rid);
         if (!found) {
             res.status(404).send("Can't find the restaurant for the given index!");
             return;
         }
         const restaurant = await restaurantService.getRestaurant(rid);
+        console.log(restaurant);
 
         let completed : boolean;
         if (like) {
@@ -233,7 +295,7 @@ userRouter.put("/:userid/:rid", async (
         res.status(200).send("Operation Successful!");
 
     } catch (e : any) {
+        console.log(e);
         res.status(500).send(e.message);
     }
 });
-
