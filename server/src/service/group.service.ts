@@ -3,7 +3,7 @@ import {MGroup} from "../model/group.model";
 import {MUser} from "../model/user.model";
 import {User} from "../model/user";
 
-class GroupService implements IGroupService {
+export class GroupService implements IGroupService {
     groups : Map<string,MGroup> = new Map<string, MGroup>();
 
     // Create New Group
