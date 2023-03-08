@@ -75,3 +75,5 @@ class UserService implements IUserService{
 export function makeUserService() : IUserService {
   return new UserService();
 }
+export { IUserService };
+
