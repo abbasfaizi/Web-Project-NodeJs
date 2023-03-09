@@ -6,7 +6,7 @@ import './JoinGroupPage.css'
 import axios from "axios";
 
 async function onClickedJoin(id : string, password : string){
-    const response = await axios.post("http://localhost:8080/join", {id : id, password : password});
+    const response = await axios.post("http://localhost:8080/group/join", {id : id, password : password});
     console.log(response.data);
 }
 

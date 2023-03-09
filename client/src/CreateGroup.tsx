@@ -6,7 +6,7 @@ import './CreateGroup.css'
 import axios from "axios";
 
 async function onClickedCreate(id : string, password : string, location : string){
-    const response = await axios.post("http://localhost:8080/create", {id : id, password : password, location : location});
+    const response = await axios.post("http://localhost:8080/group/create", {id : id, password : password, location : location});
     console.log(response.data);
 }
 
