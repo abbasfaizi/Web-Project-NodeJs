@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './JoinGroupPage.css'
+import axios from "axios";
+
+async function onClickedJoin(id : string, password : string){
+    const response = await axios.post("http://localhost:8080/join", {id : id, password : password});
+    console.log(response.data);
+}
 
 function JoinGroupPage(props : {
     goToMainPage : () => void;
 }){
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -25,6 +34,8 @@ function JoinGroupPage(props : {
                                         placeholder="Group name"
                                         className="group-name-control"
                                         required
+                                        value = {id}
+                                        onChange={(event) => setId(event.target.value)}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -34,9 +45,11 @@ function JoinGroupPage(props : {
                                         placeholder="Password"
                                         className="password-control"
                                         required
+                                        value = {password}
+                                        onChange={(event) => setPassword(event.target.value)}
                                     />
                                 </div>
-                                <button type="submit" id="login" className="btn btn-primary btn-block">
+                                <button onClick={e => {e.preventDefault(); onClickedJoin(id, password)}} type="submit" id="login" className="btn btn-primary btn-block">
                                     Join
                                 </button>
                             </form>
