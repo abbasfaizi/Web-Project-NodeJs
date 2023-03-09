@@ -1,12 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from './images/logoImage.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './CreateGroup.css'
+import axios from "axios";
+
+async function onClickedCreate(id : string, password : string, location : string){
+    const response = await axios.post("http://localhost:8080/create", {id : id, password : password, location : location});
+    console.log(response.data);
+}
+
 
 function CreateGroup(props : {
     goToMainPage : () => void;
 }) {
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+    const [location, setLocation] = useState('');
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -25,6 +36,8 @@ function CreateGroup(props : {
                                         placeholder="Group name"
                                         className="group-name-control"
                                         required
+                                        value = {id}
+                                        onChange={(event) => setId(event.target.value)}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -34,9 +47,21 @@ function CreateGroup(props : {
                                         placeholder="Password"
                                         className="password-control"
                                         required
+                                        value = {password}
+                                        onChange={(event) => setPassword(event.target.value)}
                                     />
+                                    <input
+                                        type="text"
+                                        id="Location"
+                                        placeholder="Location"
+                                        className="location-control"
+                                        required
+                                        value = {location}
+                                        onChange={(event) => setLocation(event.target.value)}
+                                    />
+
                                 </div>
-                                <button type="submit" id="login" className="btn btn-primary btn-block">
+                                <button onClick={e => {e.preventDefault(); onClickedCreate(id, password, location)}} type="submit" id="login" className="btn btn-primary btn-block">
                                     Create
                                 </button>
                             </form>

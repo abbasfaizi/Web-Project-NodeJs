@@ -34,6 +34,16 @@
     font-size: calc(10px + 2vmin);
 }
 
+.location-control{
+    margin-top: 3%;
+    margin-bottom: 5%;
+    text-align: center;
+    display: inline-block;
+    border-radius: 20px;
+    width: 70%;
+    font-size: calc(10px + 2vmin);
+}
+
 .card-footer{
     background-color: white;
     border: 0
