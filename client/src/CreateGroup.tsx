@@ -4,7 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './CreateGroup.css'
 
-function CreateGroup() {
+function CreateGroup(props : {
+    goToMainPage : () => void;
+}) {
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -43,7 +45,7 @@ function CreateGroup() {
                         </div>
                     </div>
                     <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-                    <button onClick={() => (document.location = "MainPage.tsx")} className="btn btn-secondary btn-block">
+                    <button onClick={e => {e.preventDefault(); props.goToMainPage();}} className="btn btn-secondary btn-block">
                         Main page
                     </button>
                 </div>

@@ -10,28 +10,16 @@ import {Restaurants} from "../../server/src/model/restaurants"
 import {response} from "express";
 axios.defaults.withCredentials = true;
 
-async function onClickedLike() {
-    const response = await axios.put("http://localhost:8080/user/0/0", {operation : "like"});
+async function onClickedLike(id : number) {
+    let sID : string = id.toString();
+    const response = await axios.put("http://localhost:8080/user/" + sID, {operation : "like"});
     console.log(response.data);
 }
 
-async function onClickedDislike() {
-    const response = await axios.put("http://localhost:8080/user/0/0", {operation : "dislike"});
+async function onClickedDislike(id : number) {
+    let sID : string = id.toString();
+    const response = await axios.put("http://localhost:8080/user/" + sID, {operation : "dislike"});
     console.log(response.data);
-}
-
-async function fetchRestaurants(){
-    const response = await axios.get<Array<Restaurants>>("http://localhost:8080/restaurant");
-    console.log(response);
-    // response.data[0].imageUrl;
-
-    if(response.status == 200){
-        return response.data;
-    }
-}
-
-interface Matrix {
-    rows: number[][];
 }
 
 function MainScreen(props : {
@@ -41,6 +29,7 @@ function MainScreen(props : {
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [images, setImages] = useState<string[]>([]);
+    const [restaurants, setRestaurants] = useState<Restaurants[]>([]);
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -48,11 +37,15 @@ function MainScreen(props : {
                 const response = await axios.get<Array<Array<Restaurants>>>("http://localhost:8080/restaurant");
 
                 let imageUrls : string[] = [];
+                let restaurantArr : Restaurants[] = [];
                 for (let i = 0; i < response.data.length; i++){
+                    restaurantArr[i] = response.data[i][1];
                     imageUrls[i] = response.data[i][1].imageUrl;
-                    console.log(response.data[i][1].imageUrl);
                 }
                 setImages(imageUrls);
+                setRestaurants(restaurantArr);
+                console.log(restaurants);
+                console.log(imageUrls);
             } catch (error){
                 console.error(error);
             }
@@ -74,10 +67,10 @@ function MainScreen(props : {
 
                         </div>
                         <div className="card-footer">
-                            <button onClick={e => {e.preventDefault(); onClickedLike(); setCurrentIndex(currentIndex+1);}} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
+                            <button onClick={e => {e.preventDefault(); onClickedLike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1);}} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
                                 Like
                             </button>
-                            <button onClick={e => {e.preventDefault(); onClickedDislike(); setCurrentIndex(currentIndex+1)}} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
+                            <button onClick={e => {e.preventDefault(); onClickedDislike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1)}} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
                                 Dislike
                             </button>
                         </div>

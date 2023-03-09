@@ -55,9 +55,13 @@ function App() {
             goToLoginPage={() => {setPage(Page.LOGIN)}}
             />;
         case Page.CREATEGROUP:
-            return <CreateGroup/>;
+            return <CreateGroup
+            goToMainPage={() => {setPage(Page.MAIN)}}
+            />;
         case Page.JOINGROUP:
-            return <JoinGroupPage/>;
+            return <JoinGroupPage
+                goToMainPage={() => {setPage(Page.MAIN)}}
+            />;
         case Page.MAIN:
             return <MainScreen
             goToCreateGroupPage={() => {setPage(Page.CREATEGROUP)}}
