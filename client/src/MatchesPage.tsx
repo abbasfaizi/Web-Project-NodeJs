@@ -4,7 +4,9 @@ import './MatchesPage.css'
 import {Restaurants} from "../../server/src/model/restaurants"
 import axios from "axios";
 
-function MatchesPage(){
+function MatchesPage(props : {
+    goToMainPage : () => void;
+}){
 
     const [id, setId] = useState('');
     const [showRestaurant, setShowRestaurant] = useState(false);
@@ -54,7 +56,7 @@ function MatchesPage(){
                         )}
                     </div>
                     <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
-                    <button onClick={e => {e.preventDefault();}} className="btn btn-secondary btn-block">
+                    <button onClick={e => {e.preventDefault(); props.goToMainPage()}} className="btn btn-secondary btn-block">
                         Main page
                     </button>
                 </div>

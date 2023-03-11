@@ -43,34 +43,30 @@ function App() {
     switch (page) {
         case Page.LOGIN:
             return <LoginScreen
-            goToRegisterPage={() =>{
-                setPage(Page.REGISTER)
-            }}
-            goToMainPage={() =>{
-                setPage(Page.MAIN)
-            }}
+                goToRegisterPage={() =>{setPage(Page.REGISTER)}}
+                goToMainPage={() =>{setPage(Page.MAIN)}}
             />;
         case Page.REGISTER:
             return <RegisterScreen
-            goToMainPage={() => {setPage(Page.MAIN)
-            }}
-            goToLoginPage={() => {setPage(Page.LOGIN)}}
+                goToMainPage={() => {setPage(Page.MAIN)}}
+                goToLoginPage={() => {setPage(Page.LOGIN)}}
             />;
         case Page.CREATEGROUP:
             return <CreateGroup
-            goToMainPage={() => {setPage(Page.MAIN)}}
+                goToMainPage={() => {setPage(Page.MAIN)}}
             />;
         case Page.JOINGROUP:
             return <JoinGroupPage
                 goToMainPage={() => {setPage(Page.MAIN)}}
             />;
         case Page.MATCHESPAGE:
-            return <MatchesPage/>
+            return <MatchesPage goToMainPage={() => {setPage(Page.MAIN)}}
+            />
         case Page.MAIN:
             return <MainScreen
-            goToCreateGroupPage={() => {setPage(Page.CREATEGROUP)}}
-            goToJoinGroupPage={() => {setPage(Page.JOINGROUP)}}
-            goToMatchesPage={() => {setPage(Page.MATCHESPAGE)}}
+                goToCreateGroupPage={() => {setPage(Page.CREATEGROUP)}}
+                goToJoinGroupPage={() => {setPage(Page.JOINGROUP)}}
+                goToMatchesPage={() => {setPage(Page.MATCHESPAGE)}}
             />;
         case Page.ERROR:
             return <ErrorPage/>
