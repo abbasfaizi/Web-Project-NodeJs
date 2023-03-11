@@ -1,3 +1,4 @@
+/*
 import {Restaurants} from "./restaurants";
 
 export class MRestaurants implements Restaurants {
@@ -14,3 +15,4 @@ export class MRestaurants implements Restaurants {
     }
 
 }
+ */

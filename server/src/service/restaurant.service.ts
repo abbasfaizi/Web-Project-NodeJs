@@ -1,3 +1,4 @@
+/*
 import {IRestaurantService} from "./restaurant.interface";
 import {MRestaurants} from "../model/restaurants.model";
 
@@ -37,3 +38,4 @@ class RestaurantService implements IRestaurantService{
 export function makeRestaurantService() : IRestaurantService {
   return new RestaurantService();
 }
+ */

@@ -1,15 +1,17 @@
-import {groupModel} from "../model/group";
+import { IGroupService} from "../../service/group.interface";
 import { Group } from "../../model/group";
 import {User} from "../../model/user";
-import { IGroupService} from "../../service/group.interface";
+import {Restaurants} from "../../model/restaurants";
+import {groupModel} from "../model/group";
 import {userModel} from "../model/user";
+import {restaurantModel} from "../model/restaurants";
 
 
 class GroupService implements IGroupService {
     groups : Map<string,Group> = new Map<string, Group>();
 
     // Create New Group
-    async createGroup(user : User, groupID : string, password : string) : Promise<boolean> {
+    async createGroup(user : User, groupID : string, password : string, location : string) : Promise<boolean> {
         if (await groupModel.exists({id : groupID})) {
             return false;
         }
@@ -18,7 +20,8 @@ class GroupService implements IGroupService {
             id : groupID,
             host : user,
             password : password,
-            users : []
+            users : [],
+            location : location
         });
 
         await groupModel.updateOne({id: groupID}, {$addToSet: {users: user}});
@@ -61,22 +64,27 @@ class GroupService implements IGroupService {
 
     // Get all Group Members
     async groupMembers(groupID: string) : Promise<Set<User>> {
-        let members : Set<User>;
-        const group : Group | null = await groupModel.findOne({id : groupID});
+        //let members : Set<User>;
+        const group : Group | null = await groupModel.findOne({id : groupID}).populate('users');
         if (group == null) {
             console.log("GroupMembers Method failed ------------------->");
-            return members = new Set<User>();
+            //return members = new Set<User>();
+            return new Set<User>();
         }
 
         console.log(" ----------   ");
+        return new Set<User>(group.users);
+        /*
         members = new Set<User>();
         for (let i = 0; i < group.users.length; i++) {
-            let user = await userModel.findById(group.users[i]);
+            //let user = await userModel.findById(group.users[i]);
+            const user = group.users[i];
             if (user != null) {
                 members.add(user);
             }
         }
         return members;
+         */
     }
 
     // Check if user is a member of group
@@ -85,6 +93,50 @@ class GroupService implements IGroupService {
             return true;
         }
         return false;
+    }
+
+    // Find the restaurant with most likes from group Members
+    async findMostLikedRestaurant(groupId: string): Promise<Restaurants | null> {
+        try {
+            // Get the users in the group
+            const group : Group | null = await groupModel.findOne({id : groupId}).populate('users');
+            if (group == null) {
+                return null;
+            }
+
+            // Get the liked restaurants for each user
+            // @ts-ignore
+            const userIds = group.users.map(user => user._id);
+            const likedRestaurants = await userModel.find({ _id: { $in: userIds } }, { liked: 1 });
+
+            // Flatten the liked restaurants into an array of restaurant IDs
+            const restaurantIds = likedRestaurants.flatMap((user) => user.liked);
+
+
+            // Count the occurrences of each restaurant ID
+            const counts = restaurantIds.reduce((acc, id) => {
+                // @ts-ignore
+                acc[id] = (acc[id] || 0) + 1;
+                return acc;
+            }, {});
+
+            // Find the restaurant with the most likes
+            // @ts-ignore
+            const mostLikedRestaurantId = Object.keys(counts).reduce((a, b) => (counts[a] > counts[b] ? a : b));
+
+            // Get the name of the most liked restaurant
+            //const mostLikedRestaurant : Restaurants | null = await restaurantModel.findOne({id : mostLikedRestaurantId});
+            const mostLikedRestaurant: Restaurants | null = await restaurantModel.findById(mostLikedRestaurantId);
+
+            if (mostLikedRestaurant == null) {
+                return null;
+            }
+            return mostLikedRestaurant;
+
+        } catch (e : any) {
+            console.error(e);
+            return null;
+        }
     }
 
 }

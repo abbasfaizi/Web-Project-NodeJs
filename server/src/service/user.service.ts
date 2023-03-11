@@ -1,3 +1,4 @@
+/*
 import {IUserService} from "./user.interface";
 import {MUser} from "../model/user.model";
 import {MRestaurants} from "../model/restaurants.model";
@@ -76,4 +77,5 @@ export function makeUserService() : IUserService {
   return new UserService();
 }
 export { IUserService };
+ */
 

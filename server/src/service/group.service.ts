@@ -1,3 +1,4 @@
+/*
 import {IGroupService} from "./group.interface";
 import {MGroup} from "../model/group.model";
 import {MUser} from "../model/user.model";
@@ -7,7 +8,7 @@ export class GroupService implements IGroupService {
     groups : Map<string,MGroup> = new Map<string, MGroup>();
 
     // Create New Group
-    async createGroup(user : MUser, groupID : string, password : string) : Promise<boolean> {
+    async createGroup(user : MUser, groupID : string, password : string, location : string) : Promise<boolean> {
         const group : MGroup = new MGroup(user, groupID, password);
         this.groups.set(groupID, group);
         return true;
@@ -57,3 +58,4 @@ export class GroupService implements IGroupService {
 export function makeRestaurantService() : IGroupService {
     return new GroupService();
 }
+ */

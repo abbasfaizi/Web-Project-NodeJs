@@ -8,5 +8,6 @@ export interface Group {
     host: User;
     password: string;
     users: User[];
+    location : string;
 }
 

@@ -1,3 +1,4 @@
+/*
 import {User} from "./user";
 import {Restaurants} from "./restaurants";
 
@@ -18,3 +19,4 @@ export class MUser implements User{
         this.disliked = [];
     }
 }
+ */

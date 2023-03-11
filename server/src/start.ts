@@ -10,6 +10,7 @@ import { userRouter } from "./router/user.router";
 import {defaultRouter} from "./router/default.router";
 import cors from "cors";
 import {groupRouter} from "./router/group.router";
+import {yelpRouter} from "./router/yelp.router";
 
 
 /**
@@ -39,4 +40,6 @@ app.use(cors({
 app.use("/restaurant", restaurantRouter);  // Example: http://localhost:8080/dish
 app.use("/user", userRouter); //  Example: http://localhost:8080/user
 app.use("/group", groupRouter); //  Example: http://localhost:8080/group
+app.use("/yelp", yelpRouter); //  Example: http://localhost:8080/yelp For Testing Only, Remove Afterwards -----------
+
 app.use("*", defaultRouter); //   Example: http://localhost:8080

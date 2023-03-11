@@ -3,12 +3,13 @@ import {userRouter} from "./user.router";
 import { makeGroupService } from "../db/service/group.service";
 import {User} from "../model/user";
 import {Group} from "../model/group";
+import {Restaurants} from "../model/restaurants";
 
 const groupService = makeGroupService();
 export const groupRouter = express.Router()
 
 // GET Handler
-groupRouter.get("*", async (
+groupRouter.get("/", async (
     req: Request<any> & {
         session : {user ?: User}},
     res: Response<any>
@@ -28,6 +29,29 @@ groupRouter.get("*", async (
         res.status(500).send(e.message);
     }
 });
+
+// GET Handler
+groupRouter.get("/:group", async (
+    req: Request<{group : string}, {}, {}> & {
+        session : {user ?: User}},
+    res: Response<Restaurants | string>
+) => {
+    try {
+
+        const restaurant : Restaurants | null = await groupService.findMostLikedRestaurant((req).params.group);
+        console.log(restaurant);
+        if (restaurant == null) {
+            res.status(404).send("Found No Match!");
+            return;
+        }
+        res.status(200).send(restaurant);
+
+    } catch (e : any) {
+        console.log(e);
+        res.status(500).send(e.message);
+    }
+});
+
 
 // POST Handler
 groupRouter.post("/create", async (
@@ -68,10 +92,11 @@ groupRouter.post("/create", async (
             return;
         }
 
-        if ( !(await groupService.createGroup(req.session.user, req.body.id, req.body.password))) {
+        if ( !(await groupService.createGroup(req.session.user, req.body.id, req.body.password, req.body.location))) {
             res.status(409).send("GroupName/ID is already Taken!");
             return;
         }
+
         // req.session.group = await groupService.getGroup(req.body.id);
         res.status(201).send("Group has been Created");
 

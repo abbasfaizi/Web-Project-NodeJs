@@ -22,6 +22,10 @@ const groupSchema : Schema = new Schema<Group>({
         type: Schema.Types.ObjectId,
         ref: 'Users',
     }],
+    location: {
+        type: String,
+        required: true,
+    },
 });
 
 
