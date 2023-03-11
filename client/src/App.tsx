@@ -8,6 +8,7 @@ import {Restaurants} from "../../server/src/model/restaurants";
 import CreateGroup from "./CreateGroup";
 import JoinGroupPage from "./JoinGroupPage";
 import MainScreen from "./MainScreen";
+import MatchesPage from "./MatchesPage";
 axios.defaults.withCredentials = true;
 
 
@@ -16,6 +17,7 @@ enum Page {
     REGISTER,
     CREATEGROUP,
     JOINGROUP,
+    MATCHESPAGE,
     MAIN,
     ERROR
 }
@@ -62,10 +64,13 @@ function App() {
             return <JoinGroupPage
                 goToMainPage={() => {setPage(Page.MAIN)}}
             />;
+        case Page.MATCHESPAGE:
+            return <MatchesPage/>
         case Page.MAIN:
             return <MainScreen
             goToCreateGroupPage={() => {setPage(Page.CREATEGROUP)}}
             goToJoinGroupPage={() => {setPage(Page.JOINGROUP)}}
+            goToMatchesPage={() => {setPage(Page.MATCHESPAGE)}}
             />;
         case Page.ERROR:
             return <ErrorPage/>

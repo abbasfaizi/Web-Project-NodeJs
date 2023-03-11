@@ -33,19 +33,6 @@ function Login(props : {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    try {
-      const response = await axios.post('/api/login', {
-        username: username,
-        password: password
-      }
-      );
-      
-      // Redirect to the main page
-      window.location.href = '/main';
-    } catch (error) {
-      setError('Invalid username or password');
-    }
   }
 
 

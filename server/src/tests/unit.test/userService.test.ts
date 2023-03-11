@@ -1,6 +1,7 @@
-import { makeUserService, IUserService } from './user.service';
-import { MUser } from '../model/user.model';
-import { MRestaurants } from '../model/restaurants.model';
+import { makeUserService} from '../../db/service/user.service';
+import {IUserService} from "../../service/user.interface";
+import { MUser } from '../../model/user.model';
+import { MRestaurants } from '../../model/restaurants.model';
 
 describe('UserService', () => {
   let userService: IUserService;
@@ -11,7 +12,7 @@ describe('UserService', () => {
 
   describe('registerUser', () => {
     test('should add a new user to the users map', async () => {
-      const id = 'test-id';
+      const id = 'test-id-1';
       const password = 'test-password';
 
       const result = await userService.registerUser(id, password);
@@ -25,7 +26,7 @@ describe('UserService', () => {
     });
 
     test('should return false if user already exists', async () => {
-      const id = 'test-id';
+      const id = 'test-id-1';
       const password = 'test-password';
 
       await userService.registerUser(id, password);
@@ -38,7 +39,7 @@ describe('UserService', () => {
 
   describe('checkUser', () => {
     test('should return true if user exists', async () => {
-      const id = 'test-id';
+      const id = 'test-id-1';
       const password = 'test-password';
 
       await userService.registerUser(id, password);
@@ -48,7 +49,7 @@ describe('UserService', () => {
     });
 
     test('should return false if user does not exist', async () => {
-      const id = 'test-id';
+      const id = 'test-id-2';
       const result = await userService.checkUser(id);
 
       expect(result).toBe(false);

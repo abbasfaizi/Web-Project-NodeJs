@@ -1,6 +1,6 @@
-import { GroupService } from './group.service';
-import { MUser } from '../model/user.model';
-import { MGroup } from '../model/group.model';
+import { GroupService } from '../../service/group.service';
+import { MUser } from '../../model/user.model';
+import { MGroup } from '../../model/group.model';
 
 describe('GroupService', () => {
   let groupService: GroupService;

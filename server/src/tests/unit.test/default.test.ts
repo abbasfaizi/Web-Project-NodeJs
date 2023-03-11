@@ -1,7 +1,7 @@
 import request from "supertest";
 import express, { Request, Response } from "express";
 import session from "express-session";
-import { defaultRouter } from "./default.router";
+import { defaultRouter } from "../../router/default.router";
 
 describe("defaultRouter", () => {
   let app: express.Application;

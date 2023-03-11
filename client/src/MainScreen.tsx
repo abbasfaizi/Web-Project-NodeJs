@@ -8,6 +8,7 @@ import { PageTitle, MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 import {Restaurants} from "../../server/src/model/restaurants"
 import {response} from "express";
+
 axios.defaults.withCredentials = true;
 
 async function onClickedLike(id : number) {
@@ -25,6 +26,7 @@ async function onClickedDislike(id : number) {
 function MainScreen(props : {
     goToCreateGroupPage : () => void;
     goToJoinGroupPage : () => void;
+    goToMatchesPage : () => void;
 }) {
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -80,6 +82,9 @@ function MainScreen(props : {
                             </button>
                             <button onClick={e => {e.preventDefault(); props.goToJoinGroupPage();}} id="join-group" className="btn btn-info btn-block join-group-button">
                                 Join Group
+                            </button>
+                            <button onClick={e => {e.preventDefault(); props.goToMatchesPage();}} id="join-group" className="btn btn-info btn-block join-group-button">
+                                Matches
                             </button>
                         </div>
 
