@@ -32,6 +32,15 @@ function MainScreen(props : {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [images, setImages] = useState<string[]>([]);
     const [restaurants, setRestaurants] = useState<Restaurants[]>([]);
+    const [showAlert, setShowAlert] = useState(false);
+
+    // Shows an alert if there is no more restaurants to like/dislike
+    async function areThereMoreRestaurants(){
+        console.log("test")
+        if (currentIndex >= restaurants.length - 1){
+            setShowAlert(true);
+        }
+    }
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -65,14 +74,21 @@ function MainScreen(props : {
                             <MainTitle title="Swipe your favorite food" />
                         </div>
                         <div className="card-body">
-                            <img src={images[currentIndex]} className="food-image" alt="food-image" />
+                            {!showAlert && (
+                                <img src={images[currentIndex]} className="food-image" alt="food-image"/>
+                            )}
+                            {showAlert && (
+                                <div className="alert alert-warning" role="alert">
+                                    There are no more restaurants!
+                                </div>
+                            )}
 
                         </div>
                         <div className="card-footer">
-                            <button onClick={e => {e.preventDefault(); onClickedLike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1);}} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
+                            <button onClick={e => {e.preventDefault(); areThereMoreRestaurants(); onClickedLike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1);}} type="submit" id="Like" className="btn btn-outline-success custom-like-button">
                                 Like
                             </button>
-                            <button onClick={e => {e.preventDefault(); onClickedDislike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1)}} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
+                            <button onClick={e => {e.preventDefault(); areThereMoreRestaurants(); onClickedDislike(restaurants[currentIndex].id); setCurrentIndex(currentIndex+1);}} type="submit" id="DisLike" className="btn btn-outline-danger custom-dislike-button">
                                 Dislike
                             </button>
                         </div>

@@ -28,16 +28,16 @@ function JoinGroupPage(props: {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
+                    {showAlert && (
+                        <div className="alert alert-success" role="alert">
+                            Successfully joined the group!
+                        </div>
+                    )}
                     <div className="card mt-5">
                         <div className="card-header">
                             <img src={logo} className="Web-Logo" alt="Logo" />
                         </div>
                         <div className="card-body">
-                            {showAlert && (
-                                <div className="alert alert-success" role="alert">
-                                    Successfully joined the group!
-                                </div>
-                            )}
                             <form id="login-form">
                                 <div className="username-group">
                                     <input
