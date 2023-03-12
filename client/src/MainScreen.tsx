@@ -4,10 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './MainScreen.css'
 import axios from "axios";
-import { PageTitle, MainTitle } from "./PageTitle";
+import {MainTitle } from "./PageTitle";
 import Footer from "./Footer";
 import {Restaurants} from "../../server/src/model/restaurants"
-import {response} from "express";
 
 axios.defaults.withCredentials = true;
 
@@ -72,7 +71,7 @@ function MainScreen(props : {
                         </div>
                         <div className="card-body">
                             {!showAlert && (
-                                <img src={images[currentIndex]} className="food-image" alt="food-image"/>
+                                <img src={images[currentIndex]} className="food-image" alt="food"/>
                             )}
                             {showAlert && (
                                 <div className="alert alert-warning" role="alert">

@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 import LoginScreen from "./LoginScreen";
 import RegisterScreen from "./RegisterScreen";

@@ -14,6 +14,7 @@ function MatchesPage(props : {
     const [restaurantName, setRestaurantName] = useState("");
 
 
+    // Displays the most liked restaurant in a certain group
     async function clickedShow(id : string){
         const response = await axios.get("http://localhost:8080/group/" + id);
         if (response.status == 200){
