@@ -14,7 +14,7 @@ function MatchesPage(props : {
 
 
     async function clickedShow(id : string){
-        const response = await axios.get("http://localhost:8080/group/match/" + id);
+        const response = await axios.get("http://localhost:8080/group/" + id);
         if (response.status == 200){
             let restaurant : Restaurants = response.data;
             setRestaurantImage(restaurant.imageUrl);

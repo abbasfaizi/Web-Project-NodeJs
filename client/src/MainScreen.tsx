@@ -43,18 +43,19 @@ function MainScreen(props : {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get<Array<Array<Restaurants>>>("http://localhost:8080/restaurant");
+                const response = await axios.get<Map<String, Restaurants>>("http://localhost:8080/restaurant");
+                // const response = await axios.get<Array<Array<Restaurants>>>("http://localhost:8080/restaurant");
+                console.log(response.data);
 
-                let imageUrls : string[] = [];
                 let restaurantArr : Restaurants[] = [];
-                for (let i = 0; i < response.data.length; i++){
-                    restaurantArr[i] = response.data[i][1];
-                    imageUrls[i] = response.data[i][1].imageUrl;
-                }
-                setImages(imageUrls);
+                let imageUrls : string[] = [];
+                response.data.forEach(function(value : Restaurants, key : String) {
+                    restaurantArr.push(value);
+                    imageUrls.push(value.imageUrl);
+                    console.log(value);
+                })
                 setRestaurants(restaurantArr);
-                console.log(restaurants);
-                console.log(imageUrls);
+                setImages(imageUrls);
             } catch (error){
                 console.error(error);
             }
