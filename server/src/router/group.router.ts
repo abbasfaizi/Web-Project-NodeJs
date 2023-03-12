@@ -4,31 +4,17 @@ import { makeGroupService } from "../db/service/group.service";
 import {User} from "../model/user";
 import {Group} from "../model/group";
 import {Restaurants} from "../model/restaurants";
+import {makeYelpApiService} from "../api/yelp.api";
+import {restaurantService} from "./restaurant.router";
 
-const groupService = makeGroupService();
+export const groupService = makeGroupService();
+
+const KEY : string = "ZObVyWtKvwlGWl3TjzdECAEvJZ9OhcadjEsNFSKJn8Owmzed" +
+    "P1qgyYij4Z1EKNAhlLBcOmYn-R1FJXOmK6du1IE7zyuV2kqHkCX4JPlaVn_liissZbddfdiSpXMLZHYx";
+
+export const apiService = makeYelpApiService(KEY);
 export const groupRouter = express.Router()
 
-// GET Handler
-groupRouter.get("/", async (
-    req: Request<any> & {
-        session : {user ?: User}},
-    res: Response<any>
-) => {
-    try {
-        console.log(req.session.user);
-        // Check session to see if user is logged in
-        if (req.session.user == null) {
-            res.status(401).send("Not logged in");
-            return;
-        }
-
-
-        res.status(200).send();
-    } catch (e : any) {
-        console.log(e);
-        res.status(500).send(e.message);
-    }
-});
 
 // GET Handler
 groupRouter.get("/:group", async (
@@ -37,6 +23,21 @@ groupRouter.get("/:group", async (
     res: Response<Restaurants | string>
 ) => {
     try {
+
+        console.log(req.session.user);
+        // Check session to see if user is logged in
+        if (req.session.user == null) {
+            res.status(401).send("Not logged in");
+            return;
+        }
+        if (!await groupService.isGroup(req.params.group)) {
+            res.status(404).send("Can't find group");
+            return;
+        }
+        if (!(await groupService.isGroupMember(req.params.group, req.session.user))) {
+            res.status(401).send("Not a group Member");
+            return;
+        }
 
         const restaurant : Restaurants | null = await groupService.findMostLikedRestaurant((req).params.group);
         console.log(restaurant);
@@ -92,7 +93,28 @@ groupRouter.post("/create", async (
             return;
         }
 
-        if ( !(await groupService.createGroup(req.session.user, req.body.id, req.body.password, req.body.location))) {
+
+
+        if (await groupService.isGroup(req.body.id)) {
+            res.status(409).send("GroupName/ID is already Taken!");
+            return;
+        }
+
+
+        /* -------------- Connect Api Calls ------------------ */
+        const restaurants : Array<Restaurants> | null = await apiService.getRestaurants(req.body.location);
+        if (restaurants == null || !Array.isArray(restaurants)) {
+            res.status(400).send("Not a valid location!")
+            return;
+        }
+
+        for (let i = 0; i < restaurants.length; i++) {
+            const restaurant: Restaurants = restaurants[i];
+            await restaurantService.createRestaurant(restaurant.id, restaurant.name, restaurant.imageUrl);
+        }
+
+        /* -------------------------------- */
+        if ( !(await groupService.createGroup(req.session.user, req.body.id, req.body.password, req.body.location, restaurants))) {
             res.status(409).send("GroupName/ID is already Taken!");
             return;
         }

@@ -1,8 +1,5 @@
 import { makeUserService} from '../../db/service/user.service';
 import {IUserService} from "../../service/user.interface";
-import { MUser } from '../../model/user.model';
-import { MRestaurants } from '../../model/restaurants.model';
-
 describe('UserService', () => {
   let userService: IUserService;
 

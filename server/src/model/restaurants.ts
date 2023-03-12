@@ -1,6 +1,6 @@
 
 export interface Restaurants {
-    id : number;
+    id : string;
     name: string;
     imageUrl: string;
 }

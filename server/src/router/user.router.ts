@@ -7,7 +7,7 @@ import {Restaurants} from "../model/restaurants";
 const userService = makeUserService()      //For using service layer functions
 export const userRouter = express.Router()
 
-/* -------------- Test Set [U] ------------- */
+/* -------------- Test Set [U] -------------
 console.log("Inputting User Test Set ------------------------->")
 userService.registerUser("user0", "a");
 userService.registerUser("user1", "b");
@@ -248,14 +248,17 @@ userRouter.put("/:rid", async (
             ${typeof (req.body.operation)}`);
             return;
         }
+        const id : string = req.session.user.id; // Unique user ID
+        const rid : string = req.params.rid;
 
         // Parse & Check id for bound
-        const id : string = req.session.user.id; // Unique user ID
+        /*
         const rid : number = parseInt(req.params.rid, 10); // Unique restaurant ID
         if (!(rid >= 0)) {
             res.status(400).send("Index out of bound! Must be equal to or greater than 0")
             return;
         }
+         */
 
         // Check operation type, either like or dislike
         let like : boolean; // true == like operation, false == dislike

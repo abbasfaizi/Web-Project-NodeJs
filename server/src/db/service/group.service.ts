@@ -11,7 +11,7 @@ class GroupService implements IGroupService {
     groups : Map<string,Group> = new Map<string, Group>();
 
     // Create New Group
-    async createGroup(user : User, groupID : string, password : string, location : string) : Promise<boolean> {
+    async createGroup(user : User, groupID : string, password : string, location : string, restaurants : Restaurants[]) : Promise<boolean> {
         if (await groupModel.exists({id : groupID})) {
             return false;
         }
@@ -21,11 +21,20 @@ class GroupService implements IGroupService {
             host : user,
             password : password,
             users : [],
-            location : location
+            location : location,
+            restaurants : []
         });
 
-        await groupModel.updateOne({id: groupID}, {$addToSet: {users: user}});
-        return true;
+
+
+        await groupModel.updateOne({"id": groupID}, {$addToSet: {users: user}});
+        for (let i = 0; i < restaurants.length; i++) {
+            const restaurant : Restaurants | null = await restaurantModel.findOne({ id: restaurants[i].id });
+            if (restaurant !== null) {
+                await groupModel.updateOne({"id": groupID}, {$addToSet: {restaurants: restaurant}});
+            }
+        }
+            return true;
     }
 
     // User join group
@@ -139,6 +148,75 @@ class GroupService implements IGroupService {
         }
     }
 
+    async getGroupsForUser(user: User): Promise<Array<Group> | null> {
+        try {
+            const groups : Array<Group> | null = await groupModel.find({ users: user });
+            if (groups == null) {
+                throw new Error("Find returned null");
+            }
+
+            return groups;
+        } catch (e : any) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async getRestaurantsForUser(user : User) : Promise<Array<Restaurants>> {
+        /*
+        try {
+            // Find all groups that the user is a member of and populate the restaurants field
+            const groups = await groupModel.find({ users: user._id }).populate('restaurants');
+
+            // Extract all restaurant IDs from the groups
+            const restaurantIds = groups.flatMap(group => group.restaurants?.map(r => r._id) || []);
+
+            // Find all restaurants that are not already liked or disliked by the user
+            const likedRestaurantIds = user?.liked?.map(r => r._id) || [];
+            const dislikedRestaurantIds = user?.disliked?.map(r => r._id) || [];
+            const recommendedRestaurants = await restaurantModel.find({
+                _id: { $nin: [...likedRestaurantIds, ...dislikedRestaurantIds] },
+                _id: { $in: restaurantIds },
+            });
+
+            return recommendedRestaurants;
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    }
+         */
+        try {
+            // Find all groups that the user is a member of and populate the restaurants field
+            console.log(user);
+            const theUser = await userModel.findOne({id: user.id}).populate('liked').populate('disliked');
+            console.log(theUser);
+            const groups = await groupModel.find({ users: user._id }).populate('restaurants');
+
+
+            // Extract all restaurant IDs from the groups
+            const restaurantIds = groups.flatMap(group => group.restaurants.map(r => r._id));
+
+            // Find all restaurants that are not already liked or disliked by the user
+            const groupRestaurants = await restaurantModel
+                .find({
+                    _id: { $in: restaurantIds }});
+
+
+
+
+
+
+            const removeRestaurants : Restaurants[] = user.liked.concat(user.disliked);
+            const filteredArray : Restaurants[] = groupRestaurants.filter(restaurant => !removeRestaurants.includes(restaurant));
+            console.log(filteredArray);
+
+            return filteredArray;
+        } catch (e: any) {
+            console.error(e);
+            return [];
+        }
+    }
 }
 
 export function makeGroupService() : IGroupService {

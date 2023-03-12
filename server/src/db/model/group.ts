@@ -26,6 +26,10 @@ const groupSchema : Schema = new Schema<Group>({
         type: String,
         required: true,
     },
+    restaurants: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurants',
+    }],
 });
 
 

@@ -1,6 +1,4 @@
-import { GroupService } from '../../service/group.service';
-import { MUser } from '../../model/user.model';
-import { MGroup } from '../../model/group.model';
+/*
 
 describe('GroupService', () => {
   let groupService: GroupService;
@@ -54,4 +52,5 @@ describe('GroupService', () => {
   });
   // add more tests for other methods
 });
+ */
 

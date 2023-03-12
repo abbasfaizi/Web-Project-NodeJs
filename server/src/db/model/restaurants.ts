@@ -5,7 +5,7 @@ import {Restaurants} from "../../model/restaurants";
 
 const restaurantSchema : Schema = new Schema<Restaurants>({
     id: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
     },

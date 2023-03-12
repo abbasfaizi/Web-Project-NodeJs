@@ -6,7 +6,7 @@ import {IRestaurantService} from "../../service/restaurant.interface";
 class RestaurantService implements IRestaurantService{
 
     // Create & Add to stored restaurants
-    async createRestaurant(id : number, name : string, imageUrl : string) : Promise<boolean> {
+    async createRestaurant(id : string, name : string, imageUrl : string) : Promise<boolean> {
         if (await restaurantModel.exists({id : id})) {
             return false;
         }
@@ -21,7 +21,7 @@ class RestaurantService implements IRestaurantService{
     }
 
     // Check if restaurant is stored
-    async checkRestaurant(id : number) : Promise<boolean> {
+    async checkRestaurant(id : string) : Promise<boolean> {
         if (await restaurantModel.exists({id : id})) {
             return true;
         }
@@ -29,7 +29,7 @@ class RestaurantService implements IRestaurantService{
     }
 
     // Return the found restaurant
-    async getRestaurant(id : number) : Promise<Restaurants> {
+    async getRestaurant(id : string) : Promise<Restaurants> {
         const restaurant : Restaurants | null = await restaurantModel.findOne({id : id});
         if (restaurant == null) {
             return undefined!;
@@ -38,8 +38,8 @@ class RestaurantService implements IRestaurantService{
     }
 
     // Return all stored restaurants
-    async getRestaurants() : Promise<Map<number, Restaurants>> {
-        let restaurantsMap : Map<number, Restaurants> = new Map<number, Restaurants>();
+    async getRestaurants() : Promise<Map<string, Restaurants>> {
+        let restaurantsMap : Map<string, Restaurants> = new Map<string, Restaurants>();
         const restaurantsArray : Array<Restaurants> = await restaurantModel.find();
 
         if (restaurantsArray == null) {

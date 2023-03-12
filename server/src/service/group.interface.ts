@@ -5,7 +5,7 @@ import {Restaurants} from "../model/restaurants"
 
 export interface IGroupService {
 
-    createGroup(user : User, groupID : string, password : string, location : string) : Promise<boolean>;
+    createGroup(user : User, groupID : string, password : string, location : string, restaurants : Restaurants[]) : Promise<boolean>;
     joinGroup(user : User, groupID : string, password : string) : Promise<boolean>;
     isGroup(groupID : string) : Promise<boolean>;
     getGroup(groupID : string) : Promise<Group>;
@@ -15,5 +15,7 @@ export interface IGroupService {
 
     // ------
     findMostLikedRestaurant(groupId: string) : Promise<Restaurants | null>;
+    getGroupsForUser(user : User) : Promise<Array<Group> | null>;
+    getRestaurantsForUser(user : User) : Promise<Array<Restaurants>>;
 
 }
