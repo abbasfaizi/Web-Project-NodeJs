@@ -55,9 +55,10 @@ function MainScreen(props : {
                 setRestaurants(restaurantArr);
                 setImages(imageUrls);
                 if (restaurants.length > 0){
+                    setShowAlert(false);
                     setRestaurantsLoaded(true);
                 } else {
-                    setShowAlert(true);
+                    //setShowAlert(true);
                 }
             } catch (error){
                 console.error(error);
