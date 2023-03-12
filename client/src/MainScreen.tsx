@@ -29,12 +29,13 @@ function MainScreen(props : {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [images, setImages] = useState<string[]>([]);
     const [restaurants, setRestaurants] = useState<Restaurants[]>([]);
+    const [restaurantsLoaded, setRestaurantsLoaded] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
 
     // Shows an alert if there is no more restaurants to like/dislike
     async function areThereMoreRestaurants(){
-        console.log("test")
         if (currentIndex >= restaurants.length - 1){
+            setRestaurantsLoaded(false);
             setShowAlert(true);
         }
     }
@@ -53,6 +54,11 @@ function MainScreen(props : {
                 })
                 setRestaurants(restaurantArr);
                 setImages(imageUrls);
+                if (restaurants.length > 0){
+                    setRestaurantsLoaded(true);
+                } else {
+                    setShowAlert(true);
+                }
             } catch (error){
                 console.error(error);
             }
@@ -78,6 +84,7 @@ function MainScreen(props : {
                                     There are no more restaurants!
                                 </div>
                             )}
+                            {restaurantsLoaded && (<p className={"restaurant-name"}>{restaurants[currentIndex].name}</p>)}
 
                         </div>
                         <div className="card-footer">
