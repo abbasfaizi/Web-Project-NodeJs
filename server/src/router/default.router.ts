@@ -4,11 +4,11 @@ import {User} from "../model/user";
 
 export const defaultRouter = express.Router()
 
-// GET Handler
+// Catch All Route
 defaultRouter.all("*", async (
     req: Request<any> & {
         session : {user ?: User}},
-    res: Response<any>
+    res: Response<string>
 ) => {
     try {
         console.log(req.session.user);
