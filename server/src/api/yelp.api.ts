@@ -35,7 +35,7 @@ class YelpApiService {
             return data.businesses.map((restaurant: any) => ({
                 id: restaurant.id,
                 name: restaurant.name,
-                imageUrl: restaurant.image_url,
+                imageUrl: restaurant.image_url || "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
             }));
 
 
@@ -59,7 +59,7 @@ class YelpApiService {
             const restaurantDetails: RestaurantDetails = {
                 id: parsedData.id,
                 name: parsedData.name,
-                image_url: parsedData.image_url,
+                image_url: parsedData.image_url || "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
                 phone: parsedData.phone,
                 price: parsedData.price,
                 rating: parsedData.rating,
