@@ -15,25 +15,6 @@
     width: 20%;
 }
 
-.username-control{
-    margin-top: 5%;
-    border-radius: 20px;
-    text-align: center;
-    display: inline-block;
-    width: 70%;
-    font-size: calc(10px + 2vmin);
-}
-
-.password-control{
-    margin-top: 3%;
-    margin-bottom: 5%;
-    text-align: center;
-    display: inline-block;
-    border-radius: 20px;
-    width: 70%;
-    font-size: calc(10px + 2vmin);
-}
-
 .card-footer{
     background-color: white;
     /* border: 0 */
@@ -41,14 +22,14 @@
 
 .card-header{
     background-color: white;
-    /*border: 0;
-
-     */
 }
 
 .card{
     background-color: white;
-    /* border: 0; */
+}
+
+.restaurant-name{
+    font-size: calc(10px + 2vmin);
 }
 
 .custom-like-button{
