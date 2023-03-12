@@ -2,7 +2,7 @@ import { Schema, Model } from 'mongoose';
 import { conn } from "./conn";
 import {Group} from "../../model/group";
 
-
+// Skapa ett schema för grupper med hjälp av Schema-klassen
 const groupSchema : Schema = new Schema<Group>({
     id: {
         type: String,
@@ -32,5 +32,5 @@ const groupSchema : Schema = new Schema<Group>({
     }],
 });
 
-
+// Skapa en model för grupper med hjälp av anslutningsvariabeln och groupSchema
 export const groupModel = conn.model<Group>('Groups', groupSchema);
