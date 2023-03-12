@@ -45,5 +45,11 @@ Below we have a table that lists the github user names of the contributors and t
 
 In this section you wil be able to find paths to all relevant files within our repo.
 
+- [client](https://github.com/abbasfaizi/Web-Project-NodeJs/tree/main/client) This path contains the source code for the React App.
+- [server](https://github.com/abbasfaizi/Web-Project-NodeJs/tree/main/server) This path contains the source code for the server and MongoDB implementation. 
+
+
 
 ## Screenshots
+
+To be added at a later stage.
