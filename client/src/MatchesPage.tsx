@@ -11,6 +11,7 @@ function MatchesPage(props : {
     const [id, setId] = useState('');
     const [showRestaurant, setShowRestaurant] = useState(false);
     const [restaurantImage, setRestaurantImage] = useState("");
+    const [restaurantName, setRestaurantName] = useState("");
 
 
     async function clickedShow(id : string){
@@ -18,6 +19,7 @@ function MatchesPage(props : {
         if (response.status == 200){
             let restaurant : Restaurants = response.data;
             setRestaurantImage(restaurant.imageUrl);
+            setRestaurantName(restaurant.name);
             setShowRestaurant(true);
         }
     }
@@ -51,11 +53,11 @@ function MatchesPage(props : {
                         </div>
                         {showRestaurant && (
                             <div className="restaurant-image-control">
-                                <img src={restaurantImage} className="restaurant-image" alt="restaurant-image" />
+                                <img src={restaurantImage} className="restaurant-image" alt="restaurant-image"/>
+                                <p className="text-center mt-3 restaurant-name">{restaurantName} </p>
                             </div>
                         )}
                     </div>
-                    <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
                     <button onClick={e => {e.preventDefault(); props.goToMainPage()}} className="btn btn-secondary btn-block">
                         Main page
                     </button>

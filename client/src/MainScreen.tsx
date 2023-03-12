@@ -11,14 +11,14 @@ import {response} from "express";
 
 axios.defaults.withCredentials = true;
 
+// Sends the likes restaurant to the backend
 async function onClickedLike(id : string) {
     const response = await axios.put("http://localhost:8080/user/" + id, {operation : "like"});
-    console.log(response.data);
 }
 
+// Sends the disliked restaurant to the backend
 async function onClickedDislike(id : string) {
     const response = await axios.put("http://localhost:8080/user/" + id, {operation : "dislike"});
-    console.log(response.data);
 }
 
 function MainScreen(props : {
@@ -40,19 +40,17 @@ function MainScreen(props : {
         }
     }
 
+    // Gets the restaurants and its images from an API call to the backend and stores it
     useEffect(() => {
         const fetchImages = async () => {
             try {
                 const response = await axios.get<Map<String, Restaurants>>("http://localhost:8080/restaurant");
-                // const response = await axios.get<Array<Array<Restaurants>>>("http://localhost:8080/restaurant");
-                console.log(response.data);
 
                 let restaurantArr : Restaurants[] = [];
                 let imageUrls : string[] = [];
                 response.data.forEach(function(value : Restaurants, key : String) {
                     restaurantArr.push(value);
                     imageUrls.push(value.imageUrl);
-                    console.log(value);
                 })
                 setRestaurants(restaurantArr);
                 setImages(imageUrls);
