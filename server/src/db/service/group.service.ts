@@ -12,11 +12,15 @@ class GroupService implements IGroupService {
 
     // Create New Group
     async createGroup(user : User, groupID : string, password : string, location : string, restaurants : Restaurants[]) : Promise<boolean> {
+        /*
         if (await groupModel.exists({id : groupID})) {
             return false;
         }
 
-        await groupModel.create({
+        const restaurantIds = restaurants.map(restaurant => restaurant.id);
+        const foundRestaurants = await restaurantModel.find({ id: { $in: restaurantIds } });
+
+        const newGroup = await groupModel.create({
             id : groupID,
             host : user,
             password : password,
@@ -25,7 +29,9 @@ class GroupService implements IGroupService {
             restaurants : []
         });
 
-
+        if (newGroup == null) {
+            return false;
+        }
 
         await groupModel.updateOne({"id": groupID}, {$addToSet: {users: user}});
         for (let i = 0; i < restaurants.length; i++) {
@@ -35,6 +41,30 @@ class GroupService implements IGroupService {
             }
         }
             return true;
+
+         */
+
+        if (await groupModel.exists({id : groupID})) {
+            return false;
+        }
+
+        const restaurantIds = restaurants.map(restaurant => restaurant.id);
+        const foundRestaurants = await restaurantModel.find({ id: { $in: restaurantIds } });
+
+        const newGroup = await groupModel.create({
+            id: groupID,
+            host: user,
+            password: password,
+            location: location,
+            users: [user],
+            restaurants: foundRestaurants
+        });
+
+        if (!newGroup) {
+            return false;
+        }
+
+        return true;
     }
 
     // User join group

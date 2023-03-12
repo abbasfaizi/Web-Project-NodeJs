@@ -108,10 +108,26 @@ groupRouter.post("/create", async (
             return;
         }
 
+
+        /*
         for (let i = 0; i < restaurants.length; i++) {
             const restaurant: Restaurants = restaurants[i];
             await restaurantService.createRestaurant(restaurant.id, restaurant.name, restaurant.imageUrl);
         }
+        */
+
+
+
+        const promises = restaurants.map(restaurant => {
+            /*
+            if(!restaurant.imageUrl) {
+              restaurant.imageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
+            }
+             */
+            return restaurantService.createRestaurant(restaurant.id, restaurant.name, restaurant.imageUrl);
+        });
+
+        await Promise.all(promises);
 
         /* -------------------------------- */
         if ( !(await groupService.createGroup(req.session.user, req.body.id, req.body.password, req.body.location, restaurants))) {
