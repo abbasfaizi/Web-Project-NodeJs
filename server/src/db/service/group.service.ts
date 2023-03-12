@@ -106,6 +106,7 @@ class GroupService implements IGroupService {
 
     // Find the restaurant with most likes from group Members
     async findMostLikedRestaurant(groupId: string): Promise<Restaurants | null> {
+        /*
         try {
             // Get the users in the group
             const group : Group | null = await groupModel.findOne({id : groupId}).populate('users');
@@ -146,7 +147,61 @@ class GroupService implements IGroupService {
             console.error(e);
             return null;
         }
+        }
+         */
+
+        try {
+            // Get the group and its liked restaurants
+            const group: Group | null = await groupModel
+                .findOne({ id: groupId })
+                .populate('restaurants');
+            if (group == null) {
+                return null;
+            }
+
+            // Get the users in the group
+            // @ts-ignore
+            const userIds = group.users.map((user) => user._id);
+
+            // Get the liked restaurants for each user
+            const likedRestaurants = await userModel.find(
+                { _id: { $in: userIds } },
+                { liked: 1 }
+            );
+
+            // Flatten the liked restaurants into an array of restaurant IDs
+            const restaurantIds = likedRestaurants.flatMap((user) => user.liked);
+
+            // Count the occurrences of each restaurant ID
+            const counts: Record<string, number> = {};
+            restaurantIds.forEach((id) => {
+                // @ts-ignore
+                if (group.restaurants.some((r) => r._id.equals(id))) {
+                    // @ts-ignore
+                    counts[id] = (counts[id] || 0) + 1;
+                }
+            });
+
+            // Find the restaurant with the most likes
+            const mostLikedRestaurantId = Object.keys(counts).reduce((a, b) =>
+                counts[a] > counts[b] ? a : b
+            );
+
+            // Get the most liked restaurant
+            const mostLikedRestaurant: Restaurants | null = await restaurantModel.findById(
+                mostLikedRestaurantId
+            );
+
+            if (mostLikedRestaurant == null) {
+                return null;
+            }
+            return mostLikedRestaurant;
+        } catch (e: any) {
+            console.error(e);
+            return null;
+        }
     }
+
 
     async getGroupsForUser(user: User): Promise<Array<Group> | null> {
         try {
