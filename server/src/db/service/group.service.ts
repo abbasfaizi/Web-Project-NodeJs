@@ -240,7 +240,7 @@ class GroupService implements IGroupService {
             return [];
         }
     }
-         */
+
         try {
             // Find all groups that the user is a member of and populate the restaurants field
             console.log(user);
@@ -271,6 +271,38 @@ class GroupService implements IGroupService {
             return filteredArray;
         } catch (e: any) {
             console.error(e);
+            return [];
+        }
+
+         */
+
+        try {
+            // Find all groups that the user is a member of and populate the restaurants field
+            const theUser = await userModel.findOne({id: user.id}).populate('liked').populate('disliked');
+            if (theUser == null) {
+                throw new Error("Find user returned null");
+            }
+            // @ts-ignore
+            const groups = await groupModel.find({ users: user._id }).populate('restaurants');
+            if (groups == null) {
+                throw new Error("Find groups returned null");
+            }
+
+            // Extract all restaurant IDs from the groups
+            // @ts-ignore
+            const restaurantIds = groups.flatMap(group => group.restaurants.map(r => r._id));
+
+            // Find all restaurants that are not already liked or disliked by the user
+            const removeRestaurants: Restaurants[] = theUser.liked.concat(theUser.disliked);
+            const filteredArray: Restaurants[] = await restaurantModel
+                .find({
+                    // @ts-ignore
+                    _id: { $in: restaurantIds, $nin: removeRestaurants.map(r => r._id) }
+                });
+
+            return filteredArray;
+        } catch (error) {
+            console.error(error);
             return [];
         }
     }
