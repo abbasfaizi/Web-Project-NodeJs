@@ -10,16 +10,23 @@ function JoinGroupPage(props: {
 }) {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [showAlert, setShowAlert] = useState(false);
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [failedAlert, setFailedAlert] = useState(false);
 
+    // Sends request to join a group to the backend
     async function onClickedJoin(id: string, password: string) {
         try {
             const response = await axios.post("http://localhost:8080/group/join", { id: id, password: password });
-            console.log(response.data);
+
+            // Shows a success-alert if user successfully joins a group
             if (response.status === 201) {
-                setShowAlert(true);
+                setFailedAlert(false);
+                setSuccessAlert(true);
             }
         } catch (error) {
+            // Shows a warning alert if user fails to join a group
+            setSuccessAlert(false);
+            setFailedAlert(true);
             console.log(error);
         }
     }
@@ -28,9 +35,14 @@ function JoinGroupPage(props: {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    {showAlert && (
+                    {successAlert && (
                         <div className="alert alert-success" role="alert">
                             Successfully joined the group!
+                        </div>
+                    )}
+                    {failedAlert && (
+                        <div className="alert alert-warning" role="alert">
+                            Failed to join the group!
                         </div>
                     )}
                     <div className="card mt-5">
@@ -70,7 +82,6 @@ function JoinGroupPage(props: {
                         <div className="card-footer">
                         </div>
                     </div>
-                    <p className="text-center mt-3">Click on the button below to navigate back to the main page.</p>
                     <button onClick={e => { e.preventDefault(); props.goToMainPage(); }} className="btn btn-secondary btn-block">
                         Main page
                     </button>

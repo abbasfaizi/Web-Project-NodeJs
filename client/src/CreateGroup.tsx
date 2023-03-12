@@ -11,13 +11,23 @@ function CreateGroup(props : {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [location, setLocation] = useState('');
-    const [showAlert, setShowAlert] = useState(false);
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [failAlert, setFailAlert] = useState(false);
 
+    // Send request to create a group to the backend
     async function onClickedCreate(id : string, password : string, location : string){
-        const response = await axios.post("http://localhost:8080/group/create", {id : id, password : password, location : location});
-        console.log(response.data);
-        if (response.status === 201) {
-            setShowAlert(true);
+        try{
+            const response = await axios.post("http://localhost:8080/group/create", {id : id, password : password, location : location});
+            // shows a success alert if the response is OK (201)
+            if (response.status === 201) {
+                setFailAlert(false);
+                setSuccessAlert(true);
+            }
+        } catch (error){
+            // shows a warning alert if user failed to create a group
+            setSuccessAlert(false);
+            setFailAlert(true);
+            console.log(error);
         }
     }
 
@@ -25,8 +35,11 @@ function CreateGroup(props : {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <div className={`alert alert-success ${showAlert ? "d-block" : "d-none"}`} role="alert">
+                    <div className={`alert alert-success ${successAlert ? "d-block" : "d-none"}`} role="alert">
                         Group created successfully!
+                    </div>
+                    <div className={`alert alert-warning ${failAlert ? "d-block" : "d-none"}`} role="alert">
+                        Failed to create group!
                     </div>
                     <div className="card mt-5">
                         <div className="card-header">
