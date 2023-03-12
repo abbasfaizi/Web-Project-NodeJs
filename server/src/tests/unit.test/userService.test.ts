@@ -1,10 +1,20 @@
 import { makeUserService} from '../../db/service/user.service';
 import {IUserService} from "../../service/user.interface";
-describe('UserService', () => {
-  let userService: IUserService;
+import {conn} from "../../db/model/conn";
 
-  beforeEach(() => {
-    userService = makeUserService();
+
+describe('UserService', () => {
+
+  const userService = makeUserService();
+
+  beforeAll(async () => {
+    await conn.collection('restaurants').deleteMany({});
+    await conn.collection('users').deleteMany({});
+    await conn.collection('groups').deleteMany({});
+  });
+
+  afterAll(async () => {
+    await conn.close();
   });
 
   describe('registerUser', () => {

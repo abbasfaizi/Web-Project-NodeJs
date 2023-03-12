@@ -191,10 +191,12 @@ class GroupService implements IGroupService {
             console.log(user);
             const theUser = await userModel.findOne({id: user.id}).populate('liked').populate('disliked');
             console.log(theUser);
+            // @ts-ignore
             const groups = await groupModel.find({ users: user._id }).populate('restaurants');
 
 
             // Extract all restaurant IDs from the groups
+            // @ts-ignore
             const restaurantIds = groups.flatMap(group => group.restaurants.map(r => r._id));
 
             // Find all restaurants that are not already liked or disliked by the user

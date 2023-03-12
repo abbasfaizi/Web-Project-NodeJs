@@ -1,56 +1,56 @@
-/*
+import {User} from "../../model/user";
+import {makeRestaurantService} from "../../db/service/restaurant.service";
+import {makeGroupService} from "../../db/service/group.service";
+import {conn} from "../../db/model/conn";
+import {makeUserService} from "../../db/service/user.service";
 
 describe('GroupService', () => {
-  let groupService: GroupService;
 
-  beforeEach(() => {
-    groupService = new GroupService();
+  const groupService = makeGroupService();
+  const userService = makeUserService();
+
+  let user : User;
+  let user2 : User;
+  let groupID: string;
+  let password: string;
+
+  beforeAll(async () => {
+      await conn.collection('restaurants').deleteMany({});
+      await conn.collection('users').deleteMany({});
+      await conn.collection('groups').deleteMany({});
+    });
+
+  afterAll(async () => {
+      await conn.close();
   });
 
-  describe('createGroup', () => {
     it('should create a new group', async () => {
-      const user: MUser = new MUser('testuser', 'password');
-      const groupID: string = 'testgroup';
-      const password: string = 'grouppassword';
+      let userResult = await userService.registerUser('test-user-1', 'password');
+      user = await userService.findUser("test-user-1");
+      groupID = 'test-group-1';
+      password= 'group-password';
 
-      const result: boolean = await groupService.createGroup(user, groupID, password);
+      // @ts-ignore
+      const result: boolean = await groupService.createGroup(user, groupID, password, "Lindholmen 4", []);
 
       expect(result).toBe(true);
-      expect(groupService.groups.size).toBe(1);
-      expect(groupService.groups.get(groupID)).toBeDefined();
-    //  expect(groupService.groups.get(groupID)?.groupID).toBe(groupID);
-      expect(groupService.groups.get(groupID)?.password).toBe(password);
-    });
-  });
-
-  describe('joinGroup', () => {
-    let user: MUser;
-    let groupID: string;
-    let password: string;
-
-    beforeEach(async () => {
-      user = new MUser('testuser', 'password');
-      groupID = 'testgroup';
-      password = 'grouppassword';
-
-      await groupService.createGroup(user, groupID, password);
+      expect(await groupService.isGroup(groupID)).toBe(true);
+      expect(await groupService.getGroup(groupID)).toBeDefined();
     });
 
     it('should allow a user to join a group', async () => {
-      const result: boolean = await groupService.joinGroup(user, groupID);
+      let result2 = await userService.registerUser('test-user-2', 'password');
+      user2 = await userService.findUser("test-user-2");
 
+      const result: boolean = await groupService.joinGroup(user2, groupID, password);
       expect(result).toBe(true);
-      expect(groupService.groups.get(groupID)?.users).toContain(user);
+      expect(await groupService.isGroupMember(groupID, user2)).toBe(true);
     });
 
     it('should not allow a user to join a non-existent group', async () => {
-      const result: boolean = await groupService.joinGroup(user, 'nonexistentgroup');
-
+      const result: boolean = await groupService.joinGroup(user,'non-existent-group', "non-password");
       expect(result).toBe(false);
-      expect(groupService.groups.get(groupID)?.users).not.toContain(user);
     });
-  });
-  // add more tests for other methods
 });
- */
+  // add more tests for other methods
 

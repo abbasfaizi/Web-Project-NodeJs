@@ -11,15 +11,13 @@ import {response} from "express";
 
 axios.defaults.withCredentials = true;
 
-async function onClickedLike(id : number) {
-    let sID : string = id.toString();
-    const response = await axios.put("http://localhost:8080/user/" + sID, {operation : "like"});
+async function onClickedLike(id : string) {
+    const response = await axios.put("http://localhost:8080/user/" + id, {operation : "like"});
     console.log(response.data);
 }
 
-async function onClickedDislike(id : number) {
-    let sID : string = id.toString();
-    const response = await axios.put("http://localhost:8080/user/" + sID, {operation : "dislike"});
+async function onClickedDislike(id : string) {
+    const response = await axios.put("http://localhost:8080/user/" + id, {operation : "dislike"});
     console.log(response.data);
 }
 
