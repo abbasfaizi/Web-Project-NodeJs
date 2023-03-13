@@ -1,10 +1,10 @@
-import {conn} from "../../db/model/conn";
-import {IUserService} from "../../service/user.interface";
-import {makeUserService} from "../../db/service/user.service";
-import {userModel} from "../../db/model/user";
-import {restaurantModel} from "../../db/model/restaurants";
-import {Restaurants} from "../../model/restaurants";
-import {restaurantService} from "../../router/restaurant.router";
+import {conn} from "../../../db/model/conn";
+import {IUserService} from "../../../service/user.interface";
+import {makeUserService} from "../../../db/service/user.service";
+import {userModel} from "../../../db/model/user";
+import {restaurantModel} from "../../../db/model/restaurants";
+import {Restaurants} from "../../../model/restaurants";
+import {restaurantService} from "../../../router/restaurant.router";
 
 describe("UserService Test", () => {
 

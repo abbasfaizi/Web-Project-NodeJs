@@ -1,11 +1,11 @@
-import {conn} from "../../db/model/conn";
-import {makeGroupService} from "../../db/service/group.service";
-import {IGroupService} from "../../service/group.interface";
-import {User} from "../../model/user";
-import {Restaurants} from "../../model/restaurants";
-import {groupModel} from "../../db/model/group";
-import {userModel} from "../../db/model/user";
-import {restaurantModel} from "../../db/model/restaurants";
+import {conn} from "../../../db/model/conn";
+import {makeGroupService} from "../../../db/service/group.service";
+import {IGroupService} from "../../../service/group.interface";
+import {User} from "../../../model/user";
+import {Restaurants} from "../../../model/restaurants";
+import {groupModel} from "../../../db/model/group";
+import {userModel} from "../../../db/model/user";
+import {restaurantModel} from "../../../db/model/restaurants";
 
 
 describe('GroupService Test', () => {

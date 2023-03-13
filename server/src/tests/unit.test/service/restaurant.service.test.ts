@@ -1,7 +1,7 @@
-import {IRestaurantService} from "../../service/restaurant.interface";
-import {makeRestaurantService} from "../../db/service/restaurant.service";
-import {conn} from "../../db/model/conn";
-import {restaurantModel} from "../../db/model/restaurants";
+import {IRestaurantService} from "../../../service/restaurant.interface";
+import {makeRestaurantService} from "../../../db/service/restaurant.service";
+import {conn} from "../../../db/model/conn";
+import {restaurantModel} from "../../../db/model/restaurants";
 
 describe("RestaurantService Test", () => {
 
