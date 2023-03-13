@@ -37,6 +37,7 @@ class RestaurantService implements IRestaurantService{
         return restaurant;
     }
 
+    /*
     // Return all stored restaurants
     async getRestaurants() : Promise<Map<string, Restaurants>> {
         let restaurantsMap : Map<string, Restaurants> = new Map<string, Restaurants>();
@@ -51,9 +52,11 @@ class RestaurantService implements IRestaurantService{
         }
         return restaurantsMap;
     }
+     */
 
 }
 
 export function makeRestaurantService() : IRestaurantService {
     return new RestaurantService();
 }
+

@@ -1,7 +1,5 @@
 import { User } from "./user";
 import {Restaurants} from "./restaurants";
-// import {Restaurant} from "./restaurants";
-
 
 
 export interface Group {

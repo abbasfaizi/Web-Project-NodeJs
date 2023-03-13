@@ -176,6 +176,16 @@ groupRouter.post("/join", async (
             return;
         }
 
+        if (!await groupService.isGroup(req.body.id)) {
+            res.status(404).send("Can't find group");
+            return;
+        }
+
+        if ( await groupService.isGroupMember(req.body.id, req.session.user)) {
+            res.status(400).send("User is already a member");
+            return;
+        }
+
         if ( !(await groupService.joinGroup(req.session.user, req.body.id, req.body.password))) {
             res.status(401).send("Incorrect GroupName/ID or Password!");
             return;
