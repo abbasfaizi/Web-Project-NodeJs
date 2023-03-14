@@ -4,7 +4,7 @@ import {User} from "../model/user";
 
 export const defaultRouter = express.Router()
 
-// Catch All Route
+/* Default Catch All Router */
 defaultRouter.all("*", async (
     req: Request<any> & {
         session : {user ?: User}},

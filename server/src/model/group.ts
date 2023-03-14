@@ -1,7 +1,7 @@
 import { User } from "./user";
 import {Restaurants} from "./restaurants";
 
-
+/* Group Model layer implementation interface */
 export interface Group {
     id: string;
     host: User;

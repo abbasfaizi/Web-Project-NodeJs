@@ -7,8 +7,9 @@ import {Restaurants} from "../model/restaurants";
 const userService = makeUserService()      //For using service layer functions
 export const userRouter = express.Router()
 
+/* User Router */
 
-// GET Handlers
+// Route for getting all user likes
 userRouter.get("/likes", async (
     req: Request<{}, {}, {}> & {
         session : {user ?: User}},
@@ -24,22 +25,7 @@ userRouter.get("/likes", async (
             return;
         }
 
-        /*
-        // Check id for null
-        if (req.session.user.id == null ) {
-            res.status(400).send("Faulty call! ID is null");
-            return;
-        }
-         */
-
         const id : string = req.session.user.id; // Unique user ID
-        /*
-        const exists : boolean = await userService.checkUser(id);
-        if (!exists) {
-            res.status(404).send("Couldn't find the user");
-            return;
-        }
-         */
 
         // Get & Send all user liked restaurants
         const restaurants = await userService.getLikedRestaurants(id);
@@ -52,6 +38,7 @@ userRouter.get("/likes", async (
     }
 });
 
+// Route for getting all user dislikes
 userRouter.get("/dislikes", async (
     req: Request<{}, {}, {}> & {
         session : {user ?: User}},
@@ -67,22 +54,9 @@ userRouter.get("/dislikes", async (
             return;
         }
 
-        /*
-        // Check id for null
-        if (req.session.user.id == null ) {
-            res.status(400).send("Faulty call! Index is null");
-            return;
-        }
-         */
 
         const id : string = req.session.user.id; // Unique user ID
-        /*
-        const exists : boolean = await userService.checkUser(id);
-        if (!exists) {
-            res.status(404).send("Couldn't find the user");
-            return;
-        }
-         */
+
 
         // Get & Send all user disliked restaurants
         const restaurants = await userService.getDislikedRestaurants(id);
@@ -95,7 +69,7 @@ userRouter.get("/dislikes", async (
     }
 });
 
-// POST Handlers
+// Route for user registering
 userRouter.post("/register", async (
     req: Request<{}, {}, {userid : string, password : string}>,
     res: Response<string>
@@ -139,6 +113,7 @@ userRouter.post("/register", async (
     }
 });
 
+// Route for user login
 userRouter.post("/login", async (
     req: Request<{}, {}, {userid : string, password : string}> & {
          session : {user ?: User}},
@@ -194,6 +169,7 @@ userRouter.post("/login", async (
     }
 });
 
+// Route for user logout
 userRouter.delete("/logout", async (
     req: Request<{ }, {}, {}> & {
         session : {user ?: User}},
@@ -220,7 +196,7 @@ userRouter.delete("/logout", async (
 });
 
 
-// PUT Handler
+// Route for user like or dislike operations on restaurants
 userRouter.put("/:rid", async (
     req: Request<{ rid : string }, {}, {operation : string}> & {
         session : {user ?: User}},
@@ -250,14 +226,7 @@ userRouter.put("/:rid", async (
         const id : string = req.session.user.id; // Unique user ID
         const rid : string = req.params.rid;
 
-        // Parse & Check id for bound
-        /*
-        const rid : number = parseInt(req.params.rid, 10); // Unique restaurant ID
-        if (!(rid >= 0)) {
-            res.status(400).send("Index out of bound! Must be equal to or greater than 0")
-            return;
-        }
-         */
+
 
         // Check operation type, either like or dislike
         let like : boolean; // true == like operation, false == dislike

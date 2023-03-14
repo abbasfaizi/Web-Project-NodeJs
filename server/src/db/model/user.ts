@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import { conn } from "./conn";
 import { User } from "../../model/user";
 
-
+/* Represents the User model in the database */
 const userSchema : Schema = new Schema<User>({
     id: {
         type: String,

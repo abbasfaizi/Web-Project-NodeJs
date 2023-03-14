@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import {Restaurants} from "../model/restaurants";
 import {RestaurantDetails} from "./restaurantDetails";
 
-
+/* Handles calls to external Yelp api, constructed with for easy reuse and modification */
 class YelpApiService {
     private apiKey: string;
     private url: string;
@@ -18,6 +18,7 @@ class YelpApiService {
         });
     }
 
+    /* Gets all restaurants for yelp api */
     public async getRestaurants(location: string, term?: string) : Promise<Restaurants[]>{
         try {
             const url = `${this.url}/search`;
@@ -49,6 +50,7 @@ class YelpApiService {
         }
     }
 
+    /* Can be used to get details for a specific restaurant */
     public async getRestaurantDetails(id: string) : Promise<RestaurantDetails | null> {
         try {
             const url = `${this.url}/${id}`;

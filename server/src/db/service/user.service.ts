@@ -2,10 +2,9 @@ import { userModel } from "../model/user";
 import { User } from "../../model/user";
 import { Restaurants } from "../../model/restaurants";
 import { IUserService } from "../../service/user.interface";
-import {restaurantModel} from "../model/restaurants";
-import {exists} from "fs";
-import {response} from "express";
 
+
+/* Handles operations on the User model */
 class UserService implements IUserService{
 
 
@@ -82,16 +81,7 @@ class UserService implements IUserService{
             return liked = new Set<Restaurants>();
         }
 
-        //console.log(" ----------   ");
         liked = new Set<Restaurants>(user.liked);
-        /*
-        for (let i = 0; i < user.liked.length; i++) {
-            let restaurant = await restaurantModel.findById(user.liked[i]);
-            if (restaurant != null) {
-                liked.add(restaurant);
-            }
-        }
-         */
         return liked;
     }
 
@@ -104,16 +94,7 @@ class UserService implements IUserService{
             return disliked = new Set<Restaurants>();
         }
 
-        //console.log(" ----------   ");
         disliked = new Set<Restaurants>(user.disliked);
-        /*
-        for (let i = 0; i < user.liked.length; i++) {
-            let restaurant = await restaurantModel.findById(user.disliked[i]);
-            if (restaurant != null) {
-                disliked.add(restaurant);
-            }
-        }
-         */
         return disliked;
     }
 

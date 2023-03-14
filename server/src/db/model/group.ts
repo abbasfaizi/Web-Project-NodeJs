@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import { conn } from "./conn";
 import {Group} from "../../model/group";
 
+/* Represents the group model in the database */
 const groupSchema : Schema = new Schema<Group>({
     id: {
         type: String,

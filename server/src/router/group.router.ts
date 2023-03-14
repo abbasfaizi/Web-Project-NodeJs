@@ -16,7 +16,9 @@ export const apiService = makeYelpApiService(KEY);
 export const groupRouter = express.Router()
 
 
-// GET Handler
+/* Group Router */
+
+// Route for getting most liked restaurant in a group
 groupRouter.get("/:group", async (
     req: Request<{group : string}, {}, {}> & {
         session : {user ?: User}},
@@ -54,7 +56,7 @@ groupRouter.get("/:group", async (
 });
 
 
-// POST Handler
+// Route for creating group
 groupRouter.post("/create", async (
     req: Request<{}, {}, {id : string, password : string, location : string}> & {
         session : {user ?: User, group?: Group}},
@@ -109,21 +111,8 @@ groupRouter.post("/create", async (
         }
 
 
-        /*
-        for (let i = 0; i < restaurants.length; i++) {
-            const restaurant: Restaurants = restaurants[i];
-            await restaurantService.createRestaurant(restaurant.id, restaurant.name, restaurant.imageUrl);
-        }
-        */
-
-
-
         const promises = restaurants.map(restaurant => {
-            /*
-            if(!restaurant.imageUrl) {
-              restaurant.imageUrl = "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
-            }
-             */
+
             return restaurantService.createRestaurant(restaurant.id, restaurant.name, restaurant.imageUrl);
         });
 
@@ -144,6 +133,7 @@ groupRouter.post("/create", async (
     }
 });
 
+// Route for joining a group
 groupRouter.post("/join", async (
     req: Request<{}, {}, {id : string, password : string}> & {
         session : {user ?: User, group?: Group}},

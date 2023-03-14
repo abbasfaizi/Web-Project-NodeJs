@@ -3,6 +3,7 @@ import {User} from "../model/user";
 import {Restaurants} from "../model/restaurants"
 
 
+/* Group Service layer implementation interface */
 export interface IGroupService {
 
     createGroup(user : User, groupID : string, password : string, location : string, restaurants : Restaurants[]) : Promise<boolean>;

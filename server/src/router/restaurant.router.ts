@@ -10,7 +10,9 @@ export const restaurantService = makeRestaurantService()   // For using service 
 export const restaurantRouter = express.Router()
 
 
-// GET handlers
+/* Restaurant Router */
+
+// Route for getting all restaurants
 restaurantRouter.get("/", async (
     req: Request<{}, {}, {}> & {
         session : {user ?: User}}, // session : {user ?: User, group ?: Group}},
@@ -38,6 +40,7 @@ restaurantRouter.get("/", async (
 });
 
 
+// Route for getting details for a specific restaurant
 restaurantRouter.get("/:rid", async (
     req: Request<{rid : string }, {}, {}> & {
         session : {user ?: User}},

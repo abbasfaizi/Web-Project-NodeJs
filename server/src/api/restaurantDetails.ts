@@ -1,3 +1,4 @@
+/* Interface for handling the response data of the detail method of the yelp api */
 export interface Category {
     alias: string;
     title: string;

@@ -1,6 +1,7 @@
 import {User} from "../model/user";
 import {Restaurants} from "../model/restaurants";
 
+/* User Service layer implementation interface */
 export interface IUserService {
     registerUser(id : string, password : string) : Promise<boolean>;
     checkUser(id : string) : Promise<boolean>;
