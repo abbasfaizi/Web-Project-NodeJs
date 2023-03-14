@@ -11,8 +11,6 @@ export interface IGroupService {
     isGroup(groupID : string) : Promise<boolean>;
     isGroupMember(groupID : string, user : User) : Promise<boolean>;
 
-
-    /* ------ */
     findMostLikedRestaurant(groupId: string) : Promise<Restaurants | null>;
     getRestaurantsForUser(user : User) : Promise<Array<Restaurants>>;
 
