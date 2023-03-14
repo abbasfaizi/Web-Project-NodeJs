@@ -41,7 +41,7 @@ Below we have a table that lists the github user names of the contributors and t
 ## How to run
 
 #### Introduction:
-These instructions will guide you through running a full stack website using React, TypeScript, and CSS for the frontend, and TypeScript, Node.js, and Express for the backend. The server and client sides are separated into two different folders. By the end of these instructions, you will have successfully started the server and client sides of the application, and be able to interact with the website on your local machine.
+These instructions will guide you through running our full stack website using React, TypeScript, Bootstrap and CSS for the frontend, and TypeScript, Node.js, and Express for the backend. The server and client sides are separated into two different folders. By the end of these instructions, you will have successfully started the server and client sides of the application, and be able to interact with the website on your local machine.
 
 #### Instructions:
 
