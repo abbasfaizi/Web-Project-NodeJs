@@ -9,18 +9,8 @@ import {RestaurantDetails} from "../api/restaurantDetails";
 export const restaurantService = makeRestaurantService()   // For using service layer functions
 export const restaurantRouter = express.Router()
 
-/* -------------- Test Set [R] -------------
-console.log("Inputting Restaurant Test Set ------------------------->");
-restaurantService.createRestaurant("0", "a", "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-restaurantService.createRestaurant("1", "b", "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-restaurantService.createRestaurant("2", "c", "https://images.pexels.com/photos/2097090/pexels-photo-2097090.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-restaurantService.createRestaurant("3", "d", "https://images.pexels.com/photos/2641886/pexels-photo-2641886.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-console.log(restaurantService.getRestaurants());
-/* --------------------------------------*/
-
 
 // GET handlers
-
 restaurantRouter.get("/", async (
     req: Request<{}, {}, {}> & {
         session : {user ?: User}}, // session : {user ?: User, group ?: Group}},
@@ -97,4 +87,3 @@ restaurantRouter.get("/:rid", async (
         res.status(500).send(e.message);
     }
 });
-

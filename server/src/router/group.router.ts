@@ -176,6 +176,16 @@ groupRouter.post("/join", async (
             return;
         }
 
+        if (!await groupService.isGroup(req.body.id)) {
+            res.status(404).send("Can't find group");
+            return;
+        }
+
+        if ( await groupService.isGroupMember(req.body.id, req.session.user)) {
+            res.status(400).send("User is already a member");
+            return;
+        }
+
         if ( !(await groupService.joinGroup(req.session.user, req.body.id, req.body.password))) {
             res.status(401).send("Incorrect GroupName/ID or Password!");
             return;
@@ -183,80 +193,6 @@ groupRouter.post("/join", async (
 
         // req.session.group = await groupService.getGroup(req.body.id);
         res.status(201).send("Joined Group");
-
-    } catch (e : any) {
-        console.log(e);
-        res.status(500).send(e.message);
-    }
-});
-
-// PUT Handler
-groupRouter.put("/enter/:id", async (
-    req: Request<{id : string}, {}, {}> & {
-        session : {user ?: User, group ?: Group}},
-    res: Response<string>
-) => {
-    try {
-        console.log(req.session.user);
-        // Check session to see if user is logged in
-        if (req.session.user == null) {
-            res.status(401).send("Not logged in");
-            return;
-        }
-
-        if ((req.session.group != null) || (req.params.id == null)) {
-            res.status(400).send("Faulty Call, cant already have entered another group group/ " +
-                                             "incorrect group id");
-            return;
-        }
-
-        if (typeof (req.params.id) !== "string") {
-            res.status(400).send(`Bad POST call to ${req.originalUrl} --- group id has type
-            ${typeof (req.params.id)}`);
-            return;
-        }
-
-        if ( !(await groupService.isGroup(req.params.id))) {
-            res.status(404).send("Can't find the Group for the given index!");
-            return;
-        }
-
-        if (! (await groupService.isGroupMember(req.params.id, req.session.user))) {
-            res.status(401).send("Not a member of the group");
-            return;
-        }
-
-        req.session.group = await groupService.getGroup(req.params.id);
-        res.status(201).send("Entered Group Session");
-
-    } catch (e : any) {
-        console.log(e);
-        res.status(500).send(e.message);
-    }
-});
-
-groupRouter.put("/leave", async (
-    req: Request<{}, {}, {}> & {
-        session : {user ?: User, group ?: Group}},
-    res: Response<string>
-) => {
-    try {
-        console.log(req.session.user);
-        // Check session to see if user is logged in
-        if (req.session.user == null) {
-            res.status(401).send("Not logged in");
-            return;
-        }
-
-        console.log(req.session.user);
-        // Check session to see if user is logged in
-        if (req.session.group == null) {
-            res.status(401).send("Havent entered a group");
-            return;
-        }
-
-        req.session.group = undefined;
-        res.status(201).send("Left Group Session");
 
     } catch (e : any) {
         console.log(e);

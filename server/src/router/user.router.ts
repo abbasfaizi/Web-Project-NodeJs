@@ -7,15 +7,6 @@ import {Restaurants} from "../model/restaurants";
 const userService = makeUserService()      //For using service layer functions
 export const userRouter = express.Router()
 
-/* -------------- Test Set [U] -------------
-console.log("Inputting User Test Set ------------------------->")
-userService.registerUser("user0", "a");
-userService.registerUser("user1", "b");
-userService.registerUser("user2", "c");
-userService.registerUser("user3", "d");
-console.log(userService.getUsers());
-/* --------------------------------------*/
-
 
 // GET Handlers
 userRouter.get("/likes", async (
