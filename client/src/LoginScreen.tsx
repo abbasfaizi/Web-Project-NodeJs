@@ -9,6 +9,7 @@ import Footer from "./Footer";
 axios.defaults.withCredentials = true;
 
 
+// when pressing the login button it send a login request to the backend and if it is successfully it redirects to the main page
 async function clickedLogin(username : string, password : string, props: () => void) {
   const response = await axios.post("http://localhost:8080/user/login", {
     "userid": username,
@@ -22,7 +23,6 @@ async function clickedLogin(username : string, password : string, props: () => v
 
 }
 
-
 function Login(props : {
   goToRegisterPage : () => void
   goToMainPage : () => void
@@ -34,7 +34,6 @@ function Login(props : {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   }
-
 
   return (
     <div className="container">

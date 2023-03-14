@@ -10,7 +10,6 @@ import MainScreen from "./MainScreen";
 import MatchesPage from "./MatchesPage";
 axios.defaults.withCredentials = true;
 
-
 enum Page {
     LOGIN,
     REGISTER,
@@ -31,11 +30,6 @@ function ErrorPage(){
 }
 
 function App() {
-
-   /* useEffect(() => {
-        updateRestaurants();
-    }, []);
-    */
 
     const [page, setPage] = useState<Page>(Page.LOGIN);
 
