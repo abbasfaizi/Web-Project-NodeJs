@@ -74,9 +74,9 @@ In this section you wil be able to find paths to all relevant files within our r
 
 ## Screenshots
 
-<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903428901326928/image.png" width=250px height=450px />
+<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903428901326928/image.png" width=450px height=450px />
 
-<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903589387972718/image.png" width=250px height=450px />
+<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903589387972718/image.png" width=450px height=450px />
 
-<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903899191836723/image.png" width=250px height=450px />
+<img src="https://cdn.discordapp.com/attachments/774229742848442392/1084903899191836723/image.png" width=550px height=450px />
 
