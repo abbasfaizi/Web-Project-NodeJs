@@ -35,7 +35,11 @@ class YelpApiService {
             return data.businesses.map((restaurant: any) => ({
                 id: restaurant.id,
                 name: restaurant.name,
-                imageUrl: restaurant.image_url || "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
+                imageUrl: restaurant.image_url || (restaurant.photos &&
+                                                  restaurant.photos.length > 0 ? restaurant.photos[0] :
+                                        "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"),
+
+                                     // "https://via.placeholder.com/300x300.png?text=No+Image+Available+For+The+Restaurant+" + restaurant.name),
             }));
 
 

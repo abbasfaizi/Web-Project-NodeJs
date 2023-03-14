@@ -73,10 +73,28 @@ class GroupService implements IGroupService {
             return false;
         }
         try {
-            const group = await groupModel.updateOne({id: groupID, password : password}, {$addToSet: {users: user}});
+            const group = await groupModel.findOne({ id: groupID });
             if (!group) {
                 return false;
             }
+
+            // Check if the password is correct
+            if (group.password !== password) {
+                console.log(`Invalid password for group ${groupID}.`);
+                return false;
+            }
+
+            /*
+            const group = await groupModel.updateOne({id: groupID, password : password}, {$addToSet: {users: user}});
+            if (!group.acknowledged) {
+                return false;
+            }
+             */
+
+            // Add the user to the group
+            group.users.push(user);
+            await group.save();
+
             return true;
         } catch (e) {
             console.log(e);

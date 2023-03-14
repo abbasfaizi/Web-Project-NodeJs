@@ -24,18 +24,22 @@ userRouter.get("/likes", async (
             return;
         }
 
+        /*
         // Check id for null
         if (req.session.user.id == null ) {
             res.status(400).send("Faulty call! ID is null");
             return;
         }
+         */
 
         const id : string = req.session.user.id; // Unique user ID
+        /*
         const exists : boolean = await userService.checkUser(id);
         if (!exists) {
             res.status(404).send("Couldn't find the user");
             return;
         }
+         */
 
         // Get & Send all user liked restaurants
         const restaurants = await userService.getLikedRestaurants(id);
@@ -63,18 +67,22 @@ userRouter.get("/dislikes", async (
             return;
         }
 
+        /*
         // Check id for null
         if (req.session.user.id == null ) {
             res.status(400).send("Faulty call! Index is null");
             return;
         }
+         */
 
         const id : string = req.session.user.id; // Unique user ID
+        /*
         const exists : boolean = await userService.checkUser(id);
         if (!exists) {
             res.status(404).send("Couldn't find the user");
             return;
         }
+         */
 
         // Get & Send all user disliked restaurants
         const restaurants = await userService.getDislikedRestaurants(id);
@@ -187,7 +195,7 @@ userRouter.post("/login", async (
 });
 
 userRouter.delete("/logout", async (
-    req: Request<{ rid : string }, {}, {operation : string}> & {
+    req: Request<{ }, {}, {}> & {
         session : {user ?: User}},
     res: Response<string>
 ) => {
