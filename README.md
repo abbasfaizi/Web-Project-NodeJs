@@ -40,22 +40,28 @@ Below we have a table that lists the github user names of the contributors and t
 
 ## How to run
 
+#### Introduction:
+These instructions will guide you through running a full stack website using React, TypeScript, and CSS for the frontend, and TypeScript, Node.js, and Express for the backend. The server and client sides are separated into two different folders. By the end of these instructions, you will have successfully started the server and client sides of the application, and be able to interact with the website on your local machine.
+
+#### Instructions:
+
 * Install Node.js on your machine if you haven't already. You can download it from the official website: https://nodejs.org/en/download/
 
-* Clone or download the repository that contains your website code.
+* Clone or download the repository https://github.com/abbasfaizi/Web-Project-NodeJs.git
 
 * Navigate to the root folder of the project in the terminal or command prompt.
 
-* Run the command npm install to install all the required dependencies for both the client and server sides of the application.
+* Run the command "npm install" to install all the required dependencies for both the client and server sides of the application.
 
 * Navigate to the client folder in the terminal or command prompt.
 
-* Run the command npm start to start the client side of the application. This will launch your website in your default browser.
+* Run the command "npm start" to start the client side of the application. This will launch your website in your default browser.
 
 * Open a new terminal or command prompt window and navigate to the server folder.
 
-* Run the command npm run dev to start the server side of the application in development mode. This will start the server using nodemon, which will automatically restart the server when changes are made to the code.
+* Run the command "npm run dev" to start the server side of the application in development mode. This will start the server using nodemon, which will automatically restart the server when changes are made to the code.
 
+* Head to http://localhost:3000 to view it in the browser.
 
 ## Organization of files in the repo
 
