@@ -8,6 +8,8 @@ import Footer from "./Footer";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
+
+// When pressing the register button it sends a register reqquest to the backend and if it is successfull it redirects to the login page
 async function clickedRegister(username: string, password: string, props: () => void) {
   console.log(username, password);
   const response = await axios.post("http://localhost:8080/user/register", {

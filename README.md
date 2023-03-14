@@ -69,6 +69,8 @@ In this section you wil be able to find paths to all relevant files within our r
 
 - [client](https://github.com/abbasfaizi/Web-Project-NodeJs/tree/main/client) This path contains the source code for the React App.
 - [server](https://github.com/abbasfaizi/Web-Project-NodeJs/tree/main/server) This path contains the source code for the server and MongoDB implementation. 
+- [Project report](https://github.com/abbasfaizi/Web-Project-NodeJs/blob/main/Project%20Report%20-%20Group%204.pdf) This path contains the project report of the course. 
+
 
 
 
