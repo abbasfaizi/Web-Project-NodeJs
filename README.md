@@ -1,5 +1,5 @@
 # DAT076/DIT127 - Web development project
-Welcome to this full-stack web application built with React, Node.js, and Express, with Axios for API requests. This project showcases my skills in building scalable and efficient web applications using industry-standard tools and frameworks. To get started, simply clone the repository, install the dependencies, and run the server. Enjoy!
+Welcome to this full-stack web application built with React, Node.js, and Express, with Axios for API requests. This project showcases skills in building scalable and efficient web applications using industry-standard tools and frameworks. The application provides ability for two users to be matched with each other based on their food choices. To get started, simply clone the repository, install the dependencies, and run the server. Enjoy!
 
 
 ## Project Description
